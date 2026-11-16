@@ -11,7 +11,7 @@ A slim, black, console-sized box that runs **DeepSeek V3.1 (671B)** locally, on 
 | Compute | 4 × Jetson T5000 module (87 × 100 mm), 699-pin Molex Mirror Mezz, 2.5 mm connector = **5 mm** between board and module | Pin map **real** (NVIDIA). Outline, connector position, row layout and standoffs **measured** from NVIDIA's drawings |
 | Memory | 4 × 128 GB LPDDR5X = 512 GB (273 GB/s per module, per NVIDIA's spec) | On the modules |
 | Module-to-module | Full mesh: each module's MGBE C0-C2 (UPHY lanes 12-14) wired straight to the 3 others, 6 links, AC caps on the back | Nets real, not routed |
-| Network clock | One 156.25 MHz HCSL oscillator per module into UPHY_REFCLK2, terminated as in DG-12084 fig. 7-12 (33.2 Ω series, 49.9 Ω to GND) | Real part; its pinout is **assumed** (see below) |
+| Network clock | One 156.25 MHz HCSL oscillator per module (SCTF SX5DF156.250B20F30HNN) into UPHY_REFCLK2, terminated as in DG-12084 fig. 7-12 (33.2 Ω series, 49.9 Ω to GND) | **Real**: pinout and land pattern from SCTF's 5Z spec sheet, which asks for the same 33 Ω / 50 Ω load |
 | Uplink | Each module's MGBE C3 → one lane of a QSFP28 cage (4 × 25G breakout = one port per module) | **Placeholder footprint** |
 | Storage | 1 × M.2 2280 NVMe per module on the back (PCIe C5 x4, UPHY lanes 8-11), each holding its share of the model | Nets real, stock footprint |
 | Power | 12 V in through 2 × EPS-style Mini-Fit Jr 8-pin (~600 W). See the power section | Real TI parts and land patterns |
@@ -54,17 +54,17 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 - Every connection the board makes to each module's 699 pins, taken from NVIDIA's pin description spreadsheet: power, GND, PCIe, MGBE, MGBE clock, USB, management
 - Module outline, connector position, row layout and the 4 standoff holes, measured from NVIDIA's drawings
 - Power: TI bucks, eFuses and load switches with their real land patterns and set-up resistors
+- MGBE clock: SCTF oscillator with the maker's pinout and land pattern (pin 1 = enable, high or open runs it)
 - Stock connectors (M.2, USB-C, Mini-Fit Jr, fan headers, management headers)
 - DRC: 0 violations (with 499 unrouted connections, because nothing is routed yet)
 
 **Still to confirm before ordering:**
 1. **Mirror Mezz pad size and pitch.** Measured from NVIDIA's drawings: 0.96 mm column pitch, 1.50 mm row pitch, alternate rows offset by half a pitch, ±0.05-0.5 mm. Molex's 1.30 mm "pitch" listing doesn't fit the 64.7 mm body, so that number was dropped.
    - Confirm against Molex's 203456 drawing and NVIDIA's reference layout. Which rows carry the half-pitch offset is also measured, not documented.
-2. **QSFP28 footprint (still a placeholder).** Pin numbers follow SFF-8679, but the TE and U-MAX drawings couldn't be downloaded (their sites block automated downloads). Candidate part: U-MAX UMAX95202101 (connector + cage, LCSC C42434130).
-3. **Oscillator pinout.** HCSL oscillator SX5DF156.250B20F30HNN (LCSC C5830692). Its datasheet couldn't be downloaded, so the standard 6-pin layout is assumed: 1 OE, 2 NC, 3 GND, 4 OUT+, 5 OUT−, 6 VDD.
-4. **Buck compensation.** Compensation setting 19 is a starting point; check it in TI's design tool for the 1 µH + 282 µF filter.
-5. **MV current limit.** 8.1 A is an assumption until NVIDIA's power numbers for SYS_VIN_MV are known.
-6. **MV_LSW_MON (pin L42).** NVIDIA's documents don't describe it, so it is left unconnected.
+2. **QSFP28 footprint (still a placeholder).** Pin numbers follow SFF-8679, but no readable host-PCB drawing yet. U-MAX UMAX95202101 (LCSC C42434130) turned out to be a cage only, with no datasheet on LCSC. TE's zQSFP+/QSFP28 cage drawing 2170704 (rev G8) is reachable in a browser and is the next source.
+3. **Buck compensation.** Compensation setting 19 is a starting point; check it in TI's design tool for the 1 µH + 282 µF filter.
+4. **MV current limit.** 8.1 A is an assumption until NVIDIA's power numbers for SYS_VIN_MV are known.
+5. **MV_LSW_MON (pin L42).** NVIDIA's documents don't describe it, so it is left unconnected.
 
 **Open questions:**
 - **The direct MGBE-to-MGBE mesh.** XFI is meant to drive an SFP+ module. A short PCB link acts like a passive copper cable, but it must be checked against design guide section 7.3.

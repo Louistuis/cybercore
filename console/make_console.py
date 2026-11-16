@@ -13,9 +13,9 @@ Real in rev 0.2:
     MEASURED from NVIDIA's drawings (DG-12084 fig. 3-1, SP-12533 fig. 5-1), about +-0.05 to 0.5 mm
   - power: TI TPS546B24A bucks (12 V -> 5 V and 3.3 V, 20 A each, strap resistors from the datasheet tables),
     TI TPS25982 eFuses per module (12 V HV and 5 V MV), TI TPS22918 per module (3.3 V SV); land patterns from TI's drawings
-  - MGBE reference clock: 156.25 MHz HCSL oscillator per module, terminated as in DG-12084 fig. 7-12
+  - MGBE reference clock: 156.25 MHz HCSL oscillator per module (SCTF pinout + land pattern), terminated as in DG-12084 fig. 7-12
 Still placeholder or unverified (see README.md): the exact Mirror Mezz pad size / pitch (no Molex 203456 drawing),
-the QSFP28 footprint (no TE / U-MAX drawing), the oscillator pinout (datasheet not downloadable), buck compensation and
+the QSFP28 footprint (no readable TE / U-MAX drawing yet), buck compensation and
 the 5 V MV current limit. Nothing is routed."""
 import os, sys, re, glob, math, zipfile, xml.etree.ElementTree as ET, pcbnew
 from pcbnew import FromMM, VECTOR2I, EDA_ANGLE, DEGREES_T
@@ -157,6 +157,15 @@ write_fp("QSFP28_Host_38P_Cage_Placeholder", "QSFP28 host connector + cage, PLAC
          [rect("F.Fab", 18.75, 52.0, 0, 18.0), rect("F.SilkS", 19.2, 52.4, 0, 18.0, 0.12), ftext("QSFP28 cage, mouth at board edge", 0, 40)],
          q, (19.5, 53.0), crt_xy=(0, 18.0))
 
+# 5) SCTF 5Z-series 5.0 x 3.2 mm 6-pad oscillator (SX5DF156.250B20F30HNN), land pattern from SCTF's 5Z spec sheet
+#    ("Solder pad layout"): 0.9 x 1.2 mm pads, 1.27 mm pitch (2.54 outer), rows 2.1 mm apart centre to centre.
+#    Top view: pins 1-2-3 along the bottom row left to right, 4-5-6 along the top row right to left.
+#    Pins: 1 tri-state (high or open = running, low = output off), 2 NC, 3 GND, 4 OUT, 5 OUT-bar, 6 VDD.
+p = [smd(n, x, 1.05, 0.9, 1.2) for n, x in ((1, -1.27), (2, 0), (3, 1.27))] + \
+    [smd(n, x, -1.05, 0.9, 1.2) for n, x in ((4, 1.27), (5, 0), (6, -1.27))]
+write_fp("SCTF_5Z_SMD5032-6P_5.0x3.2mm", "SCTF 5Z series 5.0 x 3.2 mm differential XO (LVPECL/LVDS/HCSL), SCTF land pattern",
+         [rect("F.Fab", 5.0, 3.2), dot(-2.65, 1.75)], p, (5.5, 4.0))
+
 # ------------------------------------------------------------------ board
 b = pcbnew.BOARD()
 b.SetCopperLayerCount(12)
@@ -265,10 +274,10 @@ for m, (cx, cy) in enumerate(MOD):
     add("Connector_PCBEdge", "TE_M.2_M_2x38-1MP_P0.5mm", f"J{10+m}", cx - 25, cy - 43, 180, "M.2 2280 NVMe 4 TB", p, back=True)
     add("MountingHole", "MountingHole_2.2mm_M2_Pad_Via", f"H{10+m}", cx - 25, cy - 43 + 80.5, 0, "M.2 standoff", {"1": "GND"}, back=True)
 
-    # MGBE refclk: 156.25 MHz HCSL oscillator (SX5DF156.250B20F30HNN, LCSC C5830692, 5032 6-pin).
-    # Pinout ASSUMED (standard 6-pin differential): 1 OE, 2 NC, 3 GND, 4 OUT+, 5 OUT-, 6 VDD. Verify before ordering.
+    # MGBE refclk: 156.25 MHz HCSL oscillator, SCTF SX5DF156.250B20F30HNN (LCSC C5830692). Pinout and land pattern from
+    # SCTF's 5Z spec sheet. Pin 1 tied to 3V3 = always running. SCTF specifies the same HCSL load (Rs 33, RL 50).
     # Termination per DG-12084 fig. 7-12: 33.2 R in series at the source, 49.9 R to GND on each leg.
-    add("Oscillator", "Oscillator_SMD_IDT_JS6-6_5.0x3.2mm_P1.27mm", f"X{m+1}", cx + 20, cy - 6, 0, "156.25MHz HCSL",
+    add("Console", "SCTF_5Z_SMD5032-6P_5.0x3.2mm", f"X{m+1}", cx + 20, cy - 6, 0, "156.25MHz HCSL",
         {"1": "3V3", "3": "GND", "4": f"M{m}_OSC_P", "5": f"M{m}_OSC_N", "6": "3V3"}, back=True)
     C(f"C{B+40}", "100nF", "3V3", cx + 25, cy - 6, back=True)
     R(f"R{B+40}", "33.2", f"M{m}_OSC_P", f"M{m}_MGBE_REFCLK_P", cx + 15, cy - 11, back=True)
