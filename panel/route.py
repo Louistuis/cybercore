@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """Routing for the status panel (KiCad's python):
   route.py export  -> panel.dsn for Freerouting
   route.py import  -> reads panel.ses, pours GND on both layers, stitches the pours, saves panel_routed.kicad_pcb

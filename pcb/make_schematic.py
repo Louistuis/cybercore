@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore top-level block diagram as a KiCad schematic (A3). Blocks + buses only: the parts-level schematic
 needs pin maps for the CC-G1 GPU (not designed yet), the AMD SP5 socket (NDA), the fabric switch and the BMC.
 See ../README.md. Run with any python3."""

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore XL rev 0.2: floorplan board for a 4-GPU + 2-CPU, 3.2 TB unified-memory AI inference server.
 
 Architecture: four CC-G1 GPUs (our own design) each own 768 GB of memory-down LPDDR5X. Two AMD EPYC 9005 CPUs

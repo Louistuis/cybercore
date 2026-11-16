@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore status panel: writes panel.kicad_sch from parts.py (adapted from the concierge-phone generator).
 Original notes: writes a real KiCad schematic from the netlists, so tools that need one (Quilter, KiCad's
 'Update PCB from schematic', schematic parity DRC) can use the design. Run with KiCad's python:

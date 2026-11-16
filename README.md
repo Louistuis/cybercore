@@ -33,4 +33,19 @@ Each folder's README has its own rebuild steps.
 NVIDIA's design guide and its pin description spreadsheet are not in this repo. They're a free download from developer.nvidia.com, and `console/make_console.py` reads them from your copy.
 
 ## License
-MIT (see [LICENSE](LICENSE)). Hardware is provided as is: placeholder footprints are marked, so check them before you order anything.
+CyberCore is **open hardware, and it stays open**.
+
+| What | License |
+|---|---|
+| Hardware: KiCad boards, footprints, schematics, Gerbers, BOMs, docs | [CERN-OHL-S-2.0](LICENSE) (CERN Open Hardware Licence v2, strongly reciprocal) |
+| Software: the Python generator scripts | [GPL-3.0-or-later](LICENSE-SOFTWARE) |
+| The CyberCore name and logo | Not licensed: see [TRADEMARKS.md](TRADEMARKS.md) |
+
+What that means:
+- **You may** build it, change it and sell it, including commercially.
+- **If you ship hardware based on it**, you must publish your modified design files under the same license, keep the credit notices, and print or include the source location.
+- **The CyberCore name stays with Louis Studios.** A copy must use its own name.
+
+**Source location:** https://github.com/Louistuis/cybercore
+
+Hardware is provided as is: placeholder footprints are marked, so check them before you order anything.

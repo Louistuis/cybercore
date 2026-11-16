@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """JLCPCB files for the status panel (KiCad's python):  jlc_files.py  ->  jlc/BOM.csv, jlc/CPL.csv, jlc/gerbers.zip
 BOM + CPL come from parts.py (LCSC numbers) and the routed board (positions). Test pads and mounting holes are not parts.
 Board order settings: 2 layers, 1.6 mm, BLACK solder mask, white silk, ENIG.

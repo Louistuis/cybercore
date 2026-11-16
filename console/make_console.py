@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore Console carrier, rev 0.1 (PoC): one slim black board that carries 4 NVIDIA Jetson T5000 (AGX Thor) modules,
 128 GB each = 512 GB unified LPDDR5X, enough for DeepSeek V3.1 (671B) at 4-bit. Run with KiCad's python:
     KPY make_console.py [path/to/Jetson_Thor_Series_Pin_Descriptions_v1.0.nvxlsx]

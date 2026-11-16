@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore status panel rev 1.0: places every part from parts.py, assigns nets, draws the outline and silkscreen,
 sets JLCPCB 2-layer rules, writes panel.kicad_pcb. Run with KiCad's python:  KPY make_panel.py
 Then: route.py export -> Freerouting -> route.py import (see ../README.md / PANEL.md).

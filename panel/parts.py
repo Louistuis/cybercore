@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
 """CyberCore status panel rev 1.0: the netlist (one dict per part). make_panel.py places these, gen_sch.py draws the
 schematic from them, jlc_files.py writes the BOM. Every LCSC number was looked up in the JLC parts API on 2026-11-16
 (stock that day in brackets); pin tables come from the KiCad symbol / footprint and the datasheets named per part.
