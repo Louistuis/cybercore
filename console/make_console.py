@@ -1,23 +1,28 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (c) 2026 Louis Studios. Part of CyberCore: https://github.com/Louistuis/cybercore
-"""CyberCore Console carrier, rev 0.1 (PoC): one slim black board that carries 4 NVIDIA Jetson T5000 (AGX Thor) modules,
+"""CyberCore Console carrier, rev 0.2 (PoC): one slim black board that carries 4 NVIDIA Jetson T5000 (AGX Thor) modules,
 128 GB each = 512 GB unified LPDDR5X, enough for DeepSeek V3.1 (671B) at 4-bit. Run with KiCad's python:
     KPY make_console.py [path/to/Jetson_Thor_Series_Pin_Descriptions_v1.0.nvxlsx]
 The 699-pin map is read from NVIDIA's pin description spreadsheet (attached inside the Jetson Thor Series Modules Design
 Guide DG-12084-001, free download from developer.nvidia.com). It is not stored in this repo; download it yourself and
 extract the attachment (`pdfdetach -saveall`), or point the script at it.
 
-What is real here: every module pin and the net it lands on (from NVIDIA's spreadsheet and design guide chapter 5 / 7),
-the board-level architecture, the stock connectors (M.2, USB-C, Mini-Fit Sr, fan headers, mgmt headers).
-What is a placeholder: the Molex Mirror Mezz footprint geometry (1.30 mm column pitch from Molex's listing, row pitch and
-the connector's position inside the module outline assumed), module standoff positions, the QSFP28 footprint, and the
-five power blocks (sized, not designed). Nothing is routed. See README.md for the list to clear before any order."""
+Real in rev 0.2:
+  - every module pin and the net it lands on (NVIDIA spreadsheet + design guide ch. 5 / 7)
+  - module outline 87 x 100 mm, connector position, 4 standoff holes, connector body 64.70 x 22.00 mm, 11 staggered rows:
+    MEASURED from NVIDIA's drawings (DG-12084 fig. 3-1, SP-12533 fig. 5-1), about +-0.05 to 0.5 mm
+  - power: TI TPS546B24A bucks (12 V -> 5 V and 3.3 V, 20 A each, strap resistors from the datasheet tables),
+    TI TPS25982 eFuses per module (12 V HV and 5 V MV), TI TPS22918 per module (3.3 V SV); land patterns from TI's drawings
+  - MGBE reference clock: 156.25 MHz HCSL oscillator per module, terminated as in DG-12084 fig. 7-12
+Still placeholder or unverified (see README.md): the exact Mirror Mezz pad size / pitch (no Molex 203456 drawing),
+the QSFP28 footprint (no TE / U-MAX drawing), the oscillator pinout (datasheet not downloadable), buck compensation and
+the 5 V MV current limit. Nothing is routed."""
 import os, sys, re, glob, math, zipfile, xml.etree.ElementTree as ET, pcbnew
 from pcbnew import FromMM, VECTOR2I, EDA_ANGLE, DEGREES_T
 HERE = os.path.dirname(os.path.abspath(__file__))
 STOCK = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/"
 LIB = os.path.join(HERE, "Console.pretty"); os.makedirs(LIB, exist_ok=True)
-W, H, RC = 240.0, 232.0, 4.0
+W, H, RC = 240.0, 256.0, 4.0
 OX, OY = 100.0, 100.0
 pt = lambda x, y: VECTOR2I(FromMM(OX + x), FromMM(OY + y))
 
@@ -48,14 +53,15 @@ BYNAME = {v: k for k, v in PINS.items()}
 ROWS = "ABCDEFGHJKL"
 
 # ------------------------------------------------------------------ custom footprints (text .kicad_mod)
-def write_fp(name, descr, body_lines, pads, crt):
-    cw, ch = crt
+for old in glob.glob(os.path.join(LIB, "*.kicad_mod")): os.remove(old)     # rebuilt from scratch every run
+def write_fp(name, descr, body_lines, pads, crt, attr="smd", crt_xy=(0, 0)):
+    cw, ch = crt; cx0, cy0 = crt_xy
     s = [f'(footprint "{name}" (version 20240108) (generator "make_console") (layer "F.Cu")',
-         f'  (descr "{descr}") (attr smd)',
-         '  (property "Reference" "REF**" (at 0 %.2f 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))' % (-ch / 2 - 1.5),
-         '  (property "Value" "%s" (at 0 %.2f 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))' % (name, ch / 2 + 1.5)]
+         f'  (descr "{descr}") (attr {attr})',
+         '  (property "Reference" "REF**" (at %.2f %.2f 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))' % (cx0, cy0 - ch / 2 - 1.5),
+         '  (property "Value" "%s" (at %.2f %.2f 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))' % (name, cx0, cy0 + ch / 2 + 1.5)]
     s += body_lines
-    s.append(f'  (fp_rect (start {-cw/2:.3f} {-ch/2:.3f}) (end {cw/2:.3f} {ch/2:.3f}) (stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd"))')
+    s.append(f'  (fp_rect (start {cx0-cw/2:.3f} {cy0-ch/2:.3f}) (end {cx0+cw/2:.3f} {cy0+ch/2:.3f}) (stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd"))')
     s += pads
     s.append(")")
     open(os.path.join(LIB, name + ".kicad_mod"), "w").write("\n".join(s) + "\n")
@@ -64,47 +70,92 @@ def rect(layer, w, h, x=0, y=0, width=0.1):
     return f'  (fp_rect (start {x-w/2:.3f} {y-h/2:.3f}) (end {x+w/2:.3f} {y+h/2:.3f}) (stroke (width {width}) (type solid)) (fill none) (layer "{layer}"))'
 def ftext(s, x, y, layer="F.Fab", size=1.0):
     return f'  (fp_text user "{s}" (at {x:.2f} {y:.2f} 0) (layer "{layer}") (effects (font (size {size} {size}) (thickness {size*0.15:.2f}))))'
+def dot(x, y, layer="F.SilkS"):
+    return f'  (fp_circle (center {x:.3f} {y:.3f}) (end {x+0.1:.3f} {y:.3f}) (stroke (width 0.2) (type solid)) (fill none) (layer "{layer}"))'
+def smd(num, x, y, w, h, shape="roundrect", paste=True):
+    lay = '"F.Cu" "F.Paste" "F.Mask"' if paste else '"F.Cu" "F.Mask"'
+    rr = " (roundrect_rratio 0.25)" if shape == "roundrect" else ""
+    return f'  (pad "{num}" smd {shape} (at {x:.4f} {y:.4f}) (size {w:.3f} {h:.3f}) (layers {lay}){rr})'
 
-# 1) Jetson Thor 699-pin Mirror Mezz, carrier side. Column pitch 1.30 mm (Molex 203456 listing). Row pitch ASSUMED 1.30 mm.
-#    Carrier pin orientation per DG-12084 fig. 3-2: row L on top (low y), row A at the bottom, column 1 on the left.
-#    The module outline (100 x 87 mm) is drawn on F.Fab and courtyard around the connector; with the 2.5 mm connector
-#    the design guide allows NO parts under the module, so make_console keeps that area clear on the top side.
-CP, RP = 1.30, 1.30
+# 1) Jetson T5000 module, carrier side: 87 x 100 mm outline, 699-pin Molex Mirror Mezz, 4 standoff holes.
+#    Footprint origin = module centre (= centre of the 4 holes). All numbers measured from NVIDIA's drawings:
+#      DG-12084 fig. 3-1: connector body 64.70 x 22.00 mm, 11 rows, alternate rows offset by half a column pitch,
+#                         contacts are rectangles longer across the row than along it.
+#      SP-12533 fig. 5-1 (carrier top view, scaled at ~13.77 px/mm): rows run along the 87 mm side; 11 rows over 15.1 mm
+#                         = 1.50 mm row pitch; a full 65-pin row spans 61.9 mm = 0.96 mm column pitch; connector centre
+#                         2.0 mm right of and 24.0 mm above the module centre; holes 80.7 x 93.4 mm apart.
+#    Carrier pin orientation per DG-12084 fig. 3-2 (mirror of the module view): row L at the top, row A at the bottom,
+#    column 1 on the left. Rows A, B, K, L use columns 3-63, rows C-J use 1-65 (699 pins).
+#    With the 2.5 mm connector (5 mm stack) the design guide allows NO parts under the module on this side, so the
+#    whole outline is a top-side keepout (rule area below); everything that belongs under a module is on the back.
+CP, RP, CONN = 0.96, 1.50, (2.0, -24.0)
+HOLES = [(sx * 40.35, sy * 46.7) for sx in (-1, 1) for sy in (-1, 1)]
 pads = []
 for pin in PINS:
-    r, c = pin[0], int(pin[1:])
-    x = (c - 33) * CP; y = (ROWS.index(r) - 5) * -RP
-    pads.append(f'  (pad "{pin}" smd circle (at {x:.3f} {y:.3f}) (size 0.65 0.65) (layers "F.Cu" "F.Paste" "F.Mask"))')
-body = [rect("F.Fab", 87.0, 16.0), rect("F.SilkS", 87.4, 16.4, width=0.12), rect("F.Fab", 100.0, 87.0, width=0.15),
-        ftext("Jetson T5000 module outline 100 x 87 (position inside it ASSUMED)", 0, -41.0),
-        ftext("L1", -33 * CP + CP, -7.2, "F.SilkS", 0.8)]
-write_fp("Jetson_Thor_699_MirrorMezz_P1.30mm_Placeholder",
-         "Molex Mirror Mezz 699-pin (65 x 11), carrier side, Jetson Thor. PLACEHOLDER geometry: verify vs Molex 203456 drawing + NVIDIA reference layout",
-         body, pads, (88.5, 17.5))
+    r, c = pin[0], int(pin[1:]); ri = ROWS.index(r)
+    x = CONN[0] + (c - 33) * CP + (CP / 4 if ri % 2 else -CP / 4)      # stagger: odd rows half a pitch right of even rows
+    y = CONN[1] + (ri - 5) * -RP
+    pads.append(smd(pin, x, y, 0.45, 0.90))
+for hx, hy in HOLES:
+    pads.append(f'  (pad "MH" thru_hole circle (at {hx:.2f} {hy:.2f}) (size 5.0 5.0) (drill 2.7) (layers "*.Cu" "*.Mask"))')
+# top-side "no parts" area over the whole module: a rule area inside the footprint (KiCad does not apply it to its own
+# footprint), so any other top-side part placed under the module fails DRC. Back-side parts are allowed.
+KEEPOUT = ('  (zone (net 0) (net_name "") (layers "F.Cu") (name "no parts under module") (hatch edge 0.5) (connect_pads (clearance 0))'
+           ' (min_thickness 0.25) (filled_areas_thickness no)'
+           ' (keepout (tracks allowed) (vias allowed) (pads allowed) (copperpour allowed) (footprints not_allowed))'
+           ' (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))'
+           ' (polygon (pts (xy -43.5 -50) (xy 43.5 -50) (xy 43.5 50) (xy -43.5 50))))')
+body = [rect("F.Fab", 87.0, 100.0, width=0.15), rect("F.Fab", 64.70, 22.00, *CONN),
+        rect("F.SilkS", 64.9, 22.2, *CONN, width=0.12), rect("F.SilkS", 87.3, 100.3, width=0.12),
+        ftext("Jetson T5000 module 87 x 100 (measured from NVIDIA drawings)", 0, 40.0),
+        ftext("L1", CONN[0] - 34.4, CONN[1] - 7.5, "F.SilkS", 0.8),
+        ftext("A1", CONN[0] - 34.4, CONN[1] + 7.5, "F.SilkS", 0.8)]
+write_fp("Jetson_T5000_Module_MirrorMezz699_Carrier",
+         "NVIDIA Jetson T5000 (AGX Thor) on a 699-pin Molex Mirror Mezz, carrier side, with the 4 module standoff holes. "
+         "Measured from NVIDIA DG-12084 fig 3-1 and SP-12533 fig 5-1 (+-0.05-0.5 mm): confirm against the Molex 203456 "
+         "drawing and NVIDIA's reference layout before ordering",
+         body + [KEEPOUT], pads, (65.2, 22.5), attr="smd", crt_xy=CONN)
 
-# 2) QSFP28 host connector (SFF-8679 38-pin), PLACEHOLDER geometry: 2 rows of 19 at 0.8 mm, cage outline approximate.
+# 2) TI TPS25982 eFuse, VQFN-24 RGE0024M (4 x 4 mm, 0.5 mm pitch), land pattern from TI's RGE0024M drawing.
+#    Two exposed pads: 25 = IN (upper), 26 = GND (lower). Pin 1 top-left, counter-clockwise.
+def qfn_side(first, n, side, pitch, span, w, h):
+    """n pads numbered from `first`, on one side of a QFN, placed counter-clockwise starting top-left."""
+    out = []
+    for i in range(n):
+        o = (i - (n - 1) / 2) * pitch
+        if side == "L": out.append(smd(first + i, -span, o, h, w))           # top -> bottom
+        if side == "B": out.append(smd(first + i, o, span, w, h))            # left -> right
+        if side == "R": out.append(smd(first + i, span, -o, h, w))           # bottom -> top
+        if side == "T": out.append(smd(first + i, -o, -span, w, h))          # right -> left
+    return out
+p = []
+for first, side in ((1, "L"), (7, "B"), (13, "R"), (19, "T")): p += qfn_side(first, 6, side, 0.5, 1.9125, 0.24, 0.575)
+p += [smd(25, 0, -0.625, 2.7, 1.45, "rect"), smd(26, 0, 0.925, 2.7, 0.85, "rect")]
+write_fp("TI_RGE0024M_VQFN-24_4x4mm_P0.5mm_SplitPad",
+         "TI RGE0024M VQFN-24 with split exposed pad (TPS25982): pad 25 = IN, pad 26 = GND. TI land pattern",
+         [rect("F.Fab", 4.0, 4.0), dot(-2.55, -1.95)], p, (4.9, 4.9))
+
+# 3) TI TPS546B24A buck, LQFN-CLIP-40 RVF0040A (5 x 7 mm, 0.5 mm pitch), land pattern from TI's RVF0040A drawing.
+#    Pins 1-12 left (top -> bottom), 13-20 bottom, 21-32 right (bottom -> top), 33-40 top (right -> left), 41 = thermal pad.
+p = []
+for i in range(12): p.append(smd(1 + i, -2.4, -2.75 + i * 0.5, 0.6, 0.25))
+for i in range(8): p.append(smd(13 + i, -1.75 + i * 0.5, 3.4, 0.25, 0.6))
+for i in range(12): p.append(smd(21 + i, 2.4, 2.75 - i * 0.5, 0.6, 0.25))
+for i in range(8): p.append(smd(33 + i, 1.75 - i * 0.5, -3.4, 0.25, 0.6))
+p.append(smd(41, 0, 0, 3.3, 5.3, "rect"))
+write_fp("TI_RVF0040A_LQFN-CLIP-40_5x7mm_P0.5mm_EP3.3x5.3mm",
+         "TI RVF0040A LQFN-CLIP-40 (TPS546B24A), pad 41 = thermal pad / PGND. TI land pattern",
+         [rect("F.Fab", 5.0, 7.0), dot(-3.1, -3.5)], p, (5.9, 7.9))
+
+# 4) QSFP28 host connector + cage (SFF-8679 38-pin): STILL A PLACEHOLDER. 2 rows of 19 at 0.8 mm, cage outline
+#    approximate. TE's and U-MAX's drawings could not be downloaded (bot-blocked), so no real land pattern yet.
 q = []
 for i in range(19):
-    q.append(f'  (pad "{i+1}" smd roundrect (at {(i-9)*0.8:.2f} -1.6) (size 0.45 1.6) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25))')
-    q.append(f'  (pad "{38-i}" smd roundrect (at {(i-9)*0.8:.2f} 1.6) (size 0.45 1.6) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25))')
+    q.append(smd(i + 1, (i - 9) * 0.8, -1.6, 0.45, 1.6))
+    q.append(smd(38 - i, (i - 9) * 0.8, 1.6, 0.45, 1.6))
 write_fp("QSFP28_Host_38P_Cage_Placeholder", "QSFP28 host connector + cage, PLACEHOLDER geometry (SFF-8679 pin numbers)",
-         [rect("F.Fab", 18.75, 52.0, 0, 18.0), rect("F.SilkS", 19.2, 52.4, 0, 18.0, 0.12), ftext("QSFP28 cage, mouth at board edge", 0, 40)], q, (19.5, 53.0))
-
-# 3) power blocks: sized pads only (IN / OUT / GND / EN / PG), PLACEHOLDER for a real converter or eFuse design
-def pwr_block(name, w, h, descr):
-    """IN on the left, OUT on the right, GND in the middle, EN + PG along the bottom edge (all scaled to the body)."""
-    pw = w * 0.22; gw = w * 0.3; sh = h * 0.18
-    p = [f'  (pad "IN" smd rect (at {-w/2+pw/2:.3f} {-sh/2:.3f}) (size {pw:.3f} {h-sh-0.6:.3f}) (layers "F.Cu" "F.Paste" "F.Mask"))',
-         f'  (pad "OUT" smd rect (at {w/2-pw/2:.3f} {-sh/2:.3f}) (size {pw:.3f} {h-sh-0.6:.3f}) (layers "F.Cu" "F.Paste" "F.Mask"))',
-         f'  (pad "GND" smd rect (at 0 {-sh/2:.3f}) (size {gw:.3f} {h-sh-0.6:.3f}) (layers "F.Cu" "F.Paste" "F.Mask"))',
-         f'  (pad "EN" smd rect (at {-w/4:.3f} {h/2-sh/2:.3f}) (size {w*0.18:.3f} {sh:.3f}) (layers "F.Cu" "F.Paste" "F.Mask"))',
-         f'  (pad "PG" smd rect (at {w/4:.3f} {h/2-sh/2:.3f}) (size {w*0.18:.3f} {sh:.3f}) (layers "F.Cu" "F.Paste" "F.Mask"))']
-    write_fp(name, descr, [rect("F.Fab", w, h), rect("F.SilkS", w + 0.6, h + 0.6, width=0.12)], p, (w + 1, h + 1))
-pwr_block("PWR_eFuse12V15A_8x6_Placeholder", 8, 6, "12 V 15 A eFuse per module (e.g. TI TPS2598x class), PLACEHOLDER")
-pwr_block("PWR_Buck5V20A_22x16_Placeholder", 22, 16, "12 V -> 5 V 20 A buck for SYS_VIN_MV, PLACEHOLDER")
-pwr_block("PWR_Buck3V3A15_22x16_Placeholder", 22, 16, "12 V -> 3.3 V 15 A buck for SYS_VIN_SV + 4 x M.2, PLACEHOLDER")
-pwr_block("PWR_LoadSw5V5A_4x4_Placeholder", 5.0, 5.0, "5 V load switch per module (MV gating for power sequencing), PLACEHOLDER")
-pwr_block("PWR_LoadSw3V3_3x3_Placeholder", 4.0, 4.0, "3.3 V load switch per module (SV gating), PLACEHOLDER")
+         [rect("F.Fab", 18.75, 52.0, 0, 18.0), rect("F.SilkS", 19.2, 52.4, 0, 18.0, 0.12), ftext("QSFP28 cage, mouth at board edge", 0, 40)],
+         q, (19.5, 53.0), crt_xy=(0, 18.0))
 
 # ------------------------------------------------------------------ board
 b = pcbnew.BOARD()
@@ -120,6 +171,7 @@ def add(lib, name, ref, x, y, rot=0, value=None, pins=None, back=False, default=
     path = LIB if lib == "Console" else STOCK + lib + ".pretty"
     f = pcbnew.FootprintLoad(path, name)
     assert f, f"{lib}:{name} missing"
+    assert ref not in fps, f"duplicate {ref}"
     f.SetReference(ref); f.SetValue(value or name); f.Value().SetVisible(False)
     f.Reference().SetTextSize(VECTOR2I(FromMM(0.8), FromMM(0.8))); f.Reference().SetTextThickness(FromMM(0.12))
     f.SetPosition(pt(x, y)); f.SetOrientation(EDA_ANGLE(rot, DEGREES_T))
@@ -136,12 +188,18 @@ def add(lib, name, ref, x, y, rot=0, value=None, pins=None, back=False, default=
     if back: f.Flip(f.GetPosition(), pcbnew.FLIP_DIRECTION_TOP_BOTTOM)   # must be on the board first (crashes otherwise)
     return f
 
-# modules: 2 x 2, centres
-MOD = [(58.0, 52.0), (182.0, 52.0), (58.0, 148.0), (182.0, 148.0)]
+C0201, C0402, C0603, C0805, C1210 = (("Capacitor_SMD", f"C_{s}") for s in
+                                     ("0201_0603Metric", "0402_1005Metric", "0603_1608Metric", "0805_2012Metric", "1210_3225Metric"))
+R0402 = ("Resistor_SMD", "R_0402_1005Metric")
+def C(ref, val, a, x, y, rot=90, bnet="GND", fp=C0402, back=False):
+    return add(*fp, ref, x, y, rot, val, {"1": a, "2": bnet}, back=back)
+def R(ref, val, a, bnet, x, y, rot=90, back=False):
+    return add(*R0402, ref, x, y, rot, val, {"1": a, "2": bnet}, back=back)
+
+# modules: 2 x 2. Each module is 87 (x) x 100 (y); row 0 spans y 5-105, row 1 y 114-214, the 37 mm channel between the
+# columns carries the mesh lanes, the fan headers and (at the rear edge) the QSFP28 cage.
+MOD = [(58.0, 55.0), (182.0, 55.0), (58.0, 164.0), (182.0, 164.0)]
 PEERS = {m: [n for n in range(4) if n != m] for m in range(4)}
-used = {m: set() for m in range(4)}
-def mpin(m, name):
-    used[m].add(name); return BYNAME[name]
 
 def module_nets(m):
     p = {}
@@ -151,14 +209,14 @@ def module_nets(m):
         elif base == "SYS_VIN_HV": p[pin] = f"M{m}_VIN_HV"
         elif base == "SYS_VIN_MV": p[pin] = f"M{m}_VIN_MV"
     p[BYNAME["SYS_VIN_SV"]] = f"M{m}_VIN_SV"
+    p["MH"] = "GND"
     return p
 
 MGMT = ["MODULE_POWER_ON", "CARRIER_POWER_ON", "SYS_RESET_N", "MODULE_POWER_GOOD", "VDDIN_PWR_BAD_N", "FORCE_RECOVERY_N",
         "MODULE_SHDN_N", "THERM_ALERT_N", "THERM_SHDN_REQ_N", "PRSNT0", "PRSNT1", "UART3_TX_DEBUG", "UART3_RX_DEBUG",
         "I2C3_CLK", "I2C3_DAT"]
-mod_pins = {m: module_nets(m) for m in range(4)}
 for m in range(4):
-    P = mod_pins[m]
+    P = module_nets(m)
     for s in MGMT: P[BYNAME[s]] = f"M{m}_{s}"
     # PCIe C5 x4 (UPHY1 config #2 lanes 0-3) -> this module's own M.2 NVMe
     for k in range(4):
@@ -167,6 +225,8 @@ for m in range(4):
     P[BYNAME["UPHY_REFCLK3_P"]] = f"M{m}_PCIE_REFCLK_P"; P[BYNAME["UPHY_REFCLK3_N"]] = f"M{m}_PCIE_REFCLK_N"
     P[BYNAME["PEX_C5_RST_N"]] = f"M{m}_PCIE_PERST_N"; P[BYNAME["PEX_C5_CLKREQ_N"]] = f"M{m}_PCIE_CLKREQ_N"
     P[BYNAME["PEX_WAKE_N"]] = f"M{m}_PCIE_WAKE_N"
+    # MGBE reference clock (UPHY_REFCLK2, F28/F29): 156.25 MHz HCSL from this module's own oscillator (below)
+    P[BYNAME["UPHY_REFCLK2_P"]] = f"M{m}_MGBE_REFCLK_P"; P[BYNAME["UPHY_REFCLK2_N"]] = f"M{m}_MGBE_REFCLK_N"
     # MGBE C0..C2 (UPHY lanes 12-14): direct 25G links to the three other modules (a PCB trace instead of a DAC cable)
     for k, peer in enumerate(PEERS[m]):
         P[BYNAME[f"UPHY_TX{12+k}_P"]] = f"MESH_{m}{peer}_P_AC"; P[BYNAME[f"UPHY_TX{12+k}_N"]] = f"MESH_{m}{peer}_N_AC"
@@ -179,94 +239,156 @@ for m in range(4):
     if m == 0: P[BYNAME["USB1_P"]] = "PANEL_USB_P"; P[BYNAME["USB1_N"]] = "PANEL_USB_N"
     P[BYNAME["FAN_PWM"]] = f"M{m}_FAN_PWM"; P[BYNAME["FAN_TACH"]] = f"M{m}_FAN_TACH"
     cx, cy = MOD[m]
-    add("Console", "Jetson_Thor_699_MirrorMezz_P1.30mm_Placeholder", f"U{m+1}", cx, cy, 0, "Jetson T5000 (AGX Thor) 128 GB", P)
+    add("Console", "Jetson_T5000_Module_MirrorMezz699_Carrier", f"U{m+1}", cx, cy, 0, "Jetson T5000 (AGX Thor) 128 GB", P)
 
-# AC coupling caps (0201, 100 nF), back side, rows beside each module's connector. PCIe TX (host side) + mesh TX.
-cap_i = [100]
-def accap(a, bnet, x, y):
-    ref = f"C{cap_i[0]}"; cap_i[0] += 1
-    add("Capacitor_SMD", "C_0201_0603Metric", ref, x, y, 90, "100nF", {"1": a, "2": bnet}, back=True)
-for m in range(4):
-    cx, cy = MOD[m]
-    row = 0
+# ------------------------------------------------------------------ under each module (back side)
+for m, (cx, cy) in enumerate(MOD):
+    B = 100 * (m + 1)          # refs: module 0 = x1xx, module 1 = x2xx, ...
+    # AC coupling caps (0201, 100 nF) just below the connector: PCIe TX (host side) + mesh TX
+    i = 0
     for k in range(4):
         for pol in "PN":
-            accap(f"M{m}_PCIE_TX{k}_{pol}_AC", f"M{m}_PCIE_TX{k}_{pol}", cx - 10 + row * 1.2, cy + 11.0); row += 1
-    row = 0
-    for peer in PEERS[m]:
+            C(f"C{B+50+i}", "100nF", f"M{m}_PCIE_TX{k}_{pol}_AC", cx - 11 + i * 1.2, cy - 12, bnet=f"M{m}_PCIE_TX{k}_{pol}", fp=C0201, back=True); i += 1
+    for j, peer in enumerate(PEERS[m]):
         for pol in "PN":
-            accap(f"MESH_{m}{peer}_{pol}_AC", f"MESH_{m}{peer}_{pol}", cx + 2 + row * 1.2, cy + 11.0); row += 1
+            C(f"C{B+50+i}", "100nF", f"MESH_{m}{peer}_{pol}_AC", cx + 2 + (i - 8) * 1.2, cy - 12, bnet=f"MESH_{m}{peer}_{pol}", fp=C0201, back=True); i += 1
 
-# M.2 2280 M-key NVMe per module, on the back under its module (PCIe Gen4/5 x4). Standard M-key pin map.
-M2 = {"3": "GND", "9": "GND", "15": "GND", "21": "GND", "27": "GND", "33": "GND", "39": "GND", "45": "GND", "51": "GND",
-      "57": "GND", "71": "GND", "73": "GND", "75": "GND", "MP": "GND",
-      "2": "3V3", "4": "3V3", "12": "3V3", "14": "3V3", "16": "3V3", "18": "3V3", "70": "3V3", "72": "3V3", "74": "3V3"}
-for m in range(4):
-    cx, cy = MOD[m]
-    p = dict(M2)
+    # M.2 2280 M-key NVMe (PCIe Gen4/5 x4), card along y on the left half. Standard M-key pin map.
+    p = {"3": "GND", "9": "GND", "15": "GND", "21": "GND", "27": "GND", "33": "GND", "39": "GND", "45": "GND", "51": "GND",
+         "57": "GND", "71": "GND", "73": "GND", "75": "GND", "MP": "GND",
+         "2": "3V3", "4": "3V3", "12": "3V3", "14": "3V3", "16": "3V3", "18": "3V3", "70": "3V3", "72": "3V3", "74": "3V3"}
     for k, (rn, rp, tn, tp) in enumerate([("41", "43", "47", "49"), ("29", "31", "35", "37"), ("17", "19", "23", "25"), ("5", "7", "11", "13")]):
         p[rn] = f"M{m}_PCIE_TX{k}_N"; p[rp] = f"M{m}_PCIE_TX{k}_P"     # SSD PER (its receive) <- host TX after the AC caps
         p[tn] = f"M{m}_PCIE_RX{k}_N"; p[tp] = f"M{m}_PCIE_RX{k}_P"     # SSD PET (its transmit) -> host RX
     p.update({"53": f"M{m}_PCIE_REFCLK_N", "55": f"M{m}_PCIE_REFCLK_P", "50": f"M{m}_PCIE_PERST_N",
               "52": f"M{m}_PCIE_CLKREQ_N", "54": f"M{m}_PCIE_WAKE_N"})
-    add("Connector_PCBEdge", "TE_M.2_M_2x38-1MP_P0.5mm", f"J{10+m}", cx - 30, cy - 38, 180, "M.2 2280 NVMe 4 TB", p, back=True)
-    add("MountingHole", "MountingHole_2.2mm_M2_Pad_Via", f"H{10+m}", cx - 30, cy - 38 + 80.5, 0, "M.2 standoff", {"1": "GND"})
+    add("Connector_PCBEdge", "TE_M.2_M_2x38-1MP_P0.5mm", f"J{10+m}", cx - 25, cy - 43, 180, "M.2 2280 NVMe 4 TB", p, back=True)
+    add("MountingHole", "MountingHole_2.2mm_M2_Pad_Via", f"H{10+m}", cx - 25, cy - 43 + 80.5, 0, "M.2 standoff", {"1": "GND"}, back=True)
 
-# module standoffs: 4 per module at the outline corners inset 4 mm (ASSUMED positions)
-hi = 20
-for m, (cx, cy) in enumerate(MOD):
-    for dx in (-47, 47):
-        for dy in (-40.5, 40.5):
-            add("MountingHole", "MountingHole_2.7mm_M2.5_Pad_Via", f"H{hi}", cx + dx, cy + dy, 0, "module standoff", {"1": "GND"}); hi += 1
+    # MGBE refclk: 156.25 MHz HCSL oscillator (SX5DF156.250B20F30HNN, LCSC C5830692, 5032 6-pin).
+    # Pinout ASSUMED (standard 6-pin differential): 1 OE, 2 NC, 3 GND, 4 OUT+, 5 OUT-, 6 VDD. Verify before ordering.
+    # Termination per DG-12084 fig. 7-12: 33.2 R in series at the source, 49.9 R to GND on each leg.
+    add("Oscillator", "Oscillator_SMD_IDT_JS6-6_5.0x3.2mm_P1.27mm", f"X{m+1}", cx + 20, cy - 6, 0, "156.25MHz HCSL",
+        {"1": "3V3", "3": "GND", "4": f"M{m}_OSC_P", "5": f"M{m}_OSC_N", "6": "3V3"}, back=True)
+    C(f"C{B+40}", "100nF", "3V3", cx + 25, cy - 6, back=True)
+    R(f"R{B+40}", "33.2", f"M{m}_OSC_P", f"M{m}_MGBE_REFCLK_P", cx + 15, cy - 11, back=True)
+    R(f"R{B+41}", "33.2", f"M{m}_OSC_N", f"M{m}_MGBE_REFCLK_N", cx + 16.2, cy - 11, back=True)
+    R(f"R{B+42}", "49.9", f"M{m}_MGBE_REFCLK_P", "GND", cx + 17.4, cy - 11, back=True)
+    R(f"R{B+43}", "49.9", f"M{m}_MGBE_REFCLK_N", "GND", cx + 18.6, cy - 11, back=True)
 
-# ------------------------------------------------------------------ bottom strip: power, I/O, management
-Y = 210.0
-# 12 V in: Molex Mini-Fit Sr 2x4 (as on CyberCore rev 0.2), pins 1-4 GND, 5-8 12 V. 4 x ~130 W + NVMe + fans ~ 600 W = 50 A.
-# 12 V in: 2 x Molex Mini-Fit Jr 2x4 (EPS-12V style: 1-4 GND, 5-8 +12 V). With HCS terminals ~13 A per pin = ~100 A total
-# for ~50 A peak (4 x 130 W modules + NVMe + fans ~ 600 W), so either cable alone carries the board.
-for j, x in (("J1", 16.0), ("J5", 40.0)):
-    add("Connector_Molex", "Molex_Mini-Fit_Jr_5566-08A_2x04_P4.20mm_Vertical", j, x, Y + 2, 0, "12V IN (EPS 8-pin)",
-        {**{str(i): "GND" for i in range(1, 5)}, **{str(i): "VIN_12V" for i in range(5, 9)}})
-add("Console", "PWR_Buck5V20A_22x16_Placeholder", "PS1", 69, Y, 0, "12V->5V 20A", {"IN": "VIN_12V", "OUT": "5V", "GND": "GND", "EN": "BUCK5_EN", "PG": "BUCK5_PG"})
-add("Console", "PWR_Buck3V3A15_22x16_Placeholder", "PS2", 94, Y, 0, "12V->3V3 15A", {"IN": "VIN_12V", "OUT": "3V3", "GND": "GND", "EN": "BUCK3_EN", "PG": "BUCK3_PG"})
-for m, (cx, cy) in enumerate(MOD):          # per-module power gating, at the module's lower edge, outside its outline
-    ys = 100.0 if m < 2 else 196.5                # the gap between the module rows / below the lower row
-    add("Console", "PWR_eFuse12V15A_8x6_Placeholder", f"PS{10+m}", cx - 39, ys, 0, "eFuse 12V 15A",
-        {"IN": "VIN_12V", "OUT": f"M{m}_VIN_HV", "GND": "GND", "EN": f"M{m}_HV_EN", "PG": f"M{m}_HV_PG"})
-    add("Console", "PWR_LoadSw5V5A_4x4_Placeholder", f"PS{20+m}", cx - 29, ys, 0, "5V switch",
-        {"IN": "5V", "OUT": f"M{m}_VIN_MV", "GND": "GND", "EN": f"M{m}_MV_EN", "PG": f"M{m}_MV_PG"})
-    add("Console", "PWR_LoadSw3V3_3x3_Placeholder", f"PS{30+m}", cx - 22, ys, 0, "3V3 switch",
-        {"IN": "3V3", "OUT": f"M{m}_VIN_SV", "GND": "GND", "EN": f"M{m}_SV_EN", "PG": f"M{m}_SV_PG"})
-    # management header 2x20 1.27 mm: odd pins = this module's control signals, even pins = GND
+    # Power gating, so a module only sees its rails when management says so (DG-12084 ch. 5 sequencing: SV first,
+    # then HV and MV; VDDIN_PWR_BAD_N held low until HV is valid).
+    # HV: TPS259827ONRGER (LCSC C2155761) eFuse on 12 V. ILIM = 1470 / RILIM -> 110 R = 13.4 A (T5000 ~130 W / 12 V
+    # = 11 A). IMON 246 uA/A into 470 R = 1.16 V at 10 A. dVdt 10 nF. RETRY_DLY to GND = latch off after a fault.
+    def efuse(ref, x, y, vin, vout, en, pg, imon, rilim, rimon, cdvdt, rb, cb):
+        add("Console", "TI_RGE0024M_VQFN-24_4x4mm_P0.5mm_SplitPad", ref, x, y, 0, "TPS259827ONRGER (C2155761)",
+            {**{str(n): vin for n in (1, 2, 3, 16, 25)}, **{str(n): vout for n in range(17, 25)},
+             **{str(n): "GND" for n in (4, 5, 14, 26, 10, 11, 12)},
+             "6": en, "8": f"{ref}_ILIM", "9": imon, "13": pg, "15": f"{ref}_DVDT"}, back=True)
+        C(f"C{cb}", "22uF", vin, x - 5, y - 1.2, rot=90, fp=C0805, back=True)
+        C(f"C{cb+1}", "100nF", vin, x - 3.2, y - 1.2, back=True)
+        C(f"C{cb+2}", cdvdt, f"{ref}_DVDT", x + 3.4, y + 0.8, back=True)
+        R(f"R{rb}", rilim, f"{ref}_ILIM", "GND", x - 1.2, y + 4, back=True)
+        R(f"R{rb+1}", rimon, imon, "GND", x, y + 4, back=True)
+        R(f"R{rb+2}", "100k", en, "GND", x - 2.4, y + 4, back=True)       # off unless management drives EN high
+        R(f"R{rb+3}", "10k", "3V3", pg, x + 1.2, y + 4, back=True)          # PG is open drain
+    efuse(f"U{B+1}", cx + 10, cy + 12, "VIN_12V", f"M{m}_VIN_HV", f"M{m}_HV_EN", f"M{m}_HV_PG", f"M{m}_HV_IMON",
+          "110", "470", "10nF", B + 1, B + 1)
+    # MV: the same eFuse on 5 V. NVIDIA gives no SYS_VIN_MV current, so the limit is an assumption: 182 R = 8.1 A.
+    efuse(f"U{B+2}", cx + 28, cy + 12, "5V", f"M{m}_VIN_MV", f"M{m}_MV_EN", f"M{m}_MV_PG", f"M{m}_MV_IMON",
+          "182", "1k", "3.3nF", B + 11, B + 11)
+    # SV (3.3 V safety-logic rail, L53): TPS22918DBVR (LCSC C131941) load switch. 1 VIN, 2 GND, 3 ON, 4 CT, 5 QOD, 6 VOUT.
+    # QOD tied to VOUT = quick output discharge through the internal resistor (SV must fall after HV and MV).
+    add("Package_TO_SOT_SMD", "SOT-23-6", f"U{B+3}", cx + 10, cy + 28, 0, "TPS22918DBVR (C131941)",
+        {"1": "3V3", "2": "GND", "3": f"M{m}_SV_EN", "4": f"U{B+3}_CT", "5": f"M{m}_VIN_SV", "6": f"M{m}_VIN_SV"}, back=True)
+    C(f"C{B+21}", "1uF", "3V3", cx + 6, cy + 28, back=True)
+    C(f"C{B+22}", "1nF", f"U{B+3}_CT", cx + 14, cy + 28, back=True)
+    R(f"R{B+21}", "100k", f"M{m}_SV_EN", "GND", cx + 15.2, cy + 28, back=True)
+
+    # management header 2x20 1.27 mm (back): odd pins = this module's control signals, even pins = GND
     sig = MGMT + ["HV_EN", "HV_PG", "MV_EN", "SV_EN", "3V3_STBY"]
     hp = {str(2 * i + 1): (f"M{m}_{s}" if s != "3V3_STBY" else "3V3") for i, s in enumerate(sig)}
     hp.update({str(2 * i + 2): "GND" for i in range(20)})
-    add("Connector_PinHeader_1.27mm", "PinHeader_2x20_P1.27mm_Vertical_SMD", f"J{20+m}", cx + 12, ys, 90, f"MGMT M{m}", hp)
-    # fan header per module (module drives its own blower): 1 GND, 2 +12V, 3 TACH, 4 PWM
-    add("Connector", "FanPinHeader_1x04_P2.54mm_Vertical", f"J{30+m}", cx + 33, ys - 1.3, 90, f"FAN M{m}",
+    add("Connector_PinHeader_1.27mm", "PinHeader_2x20_P1.27mm_Vertical_SMD", f"J{20+m}", cx + 20, cy + 42, 90, f"MGMT M{m}", hp, back=True)
+
+    # fan header per module (top side, in the centre channel): 1 GND, 2 +12V, 3 TACH, 4 PWM
+    fx = 107.0 if m % 2 == 0 else 127.5
+    add("Connector", "FanPinHeader_1x04_P2.54mm_Vertical", f"J{30+m}", fx, cy - 25, 0, f"FAN M{m}",
         {"1": "GND", "2": "VIN_12V", "3": f"M{m}_FAN_TACH", "4": f"M{m}_FAN_PWM"})
+
+# ------------------------------------------------------------------ bottom strip (y 214-256): power in, bucks, rear I/O
+# 12 V in: 2 x Molex Mini-Fit Jr 2x4 (EPS-12V style: 1-4 GND, 5-8 +12 V). With HCS terminals ~13 A per pin = ~100 A total
+# for ~50 A peak (4 x 130 W modules + NVMe + fans ~ 600 W), so either cable alone carries the board.
+for j, x in (("J1", 16.0), ("J5", 40.0)):
+    add("Connector_Molex", "Molex_Mini-Fit_Jr_5566-08A_2x04_P4.20mm_Vertical", j, x, 240.0, 0, "12V IN (EPS 8-pin)",
+        {**{str(i): "GND" for i in range(1, 5)}, **{str(i): "VIN_12V" for i in range(5, 9)}})
+
+# Two TI TPS546B24ARVFR (LCSC C3189423) 20 A PMBus bucks from 12 V. Pin straps (TI datasheet tables 7-x, Rtop to BP1V5,
+# Rbot to AGND, 1 %): VSEL sets Vout, MSEL1 = 550 kHz + compensation 19, MSEL2 = 3 ms soft start + stand-alone + 20/26 A
+# OC, ADRSEL = PMBus address. The compensation choice still has to be checked in TI's design tool for this LC filter.
+# Power stage: Coilcraft XAL7070-102MEC 1 uH (LCSC C6609502), 6 x 47 uF 10 V 1210 out, 4 x 22 uF 25 V 0805 + 10 nF in.
+def buck(base, gx, vout, en, pg, straps, en_parts):
+    u = f"U{base}"
+    pins = {str(n): "GND" for n in (*range(13, 21), 36, 37, 39, 40, 41)}   # PGND, NC, AGND, BCX_CLK/DAT (stand-alone), pad
+    pins.update({str(n): "VIN_12V" for n in range(21, 26)})
+    pins.update({str(n): f"{u}_SW" for n in range(8, 13)})
+    pins.update({"1": pg, "2": "PMBUS_DAT", "3": "PMBUS_CLK", "4": f"{u}_BP1V5", "5": f"{u}_DRTN", "6": "PMBUS_ALERT_N",
+                 "7": f"{u}_BOOT", "26": f"{u}_AVIN", "27": en, "28": f"{u}_VDD5", "29": f"{u}_MSEL2", "30": f"{u}_VSEL",
+                 "31": f"{u}_ADRSEL", "32": f"{u}_MSEL1", "33": vout, "34": "GND"})      # 35 VSHARE + 38 SYNC float
+    add("Console", "TI_RVF0040A_LQFN-CLIP-40_5x7mm_P0.5mm_EP3.3x5.3mm", u, gx + 5, 224, 0, "TPS546B24ARVFR (C3189423)", pins)
+    for i in range(4): C(f"C{base+i}", "22uF", "VIN_12V", gx + 10, 219 + i * 2.2, rot=0, fp=C0805)
+    C(f"C{base+4}", "10nF", "VIN_12V", gx + 10, 227.8, rot=0)
+    add("Inductor_SMD", "L_Coilcraft_XAL7070-XXX", f"L{base}", gx + 5, 236, 0, "XAL7070-102MEC 1uH (C6609502)",
+        {"1": f"{u}_SW", "2": vout})
+    for i in range(6): C(f"C{base+10+i}", "47uF", vout, gx + 2 + i * 3.6, 246, rot=90, fp=C1210)
+    # small parts grid right of the inductor: 5 columns x 3 rows of 0402 + one 0603 row
+    grid = [(gx + 12 + 2 * c, 230 + 3 * r) for r in range(3) for c in range(5)]
+    small = [("C", "1uF", f"{u}_BP1V5", f"{u}_DRTN"),         # BP1V5 bypass returns to DRTN only (datasheet: DRTN not to PGND/AGND)
+             ("C", "100nF", f"{u}_BOOT", f"{u}_SW"),
+             ("R", "10", "VIN_12V", f"{u}_AVIN"), ("C", "1uF", f"{u}_AVIN", "GND"),     # AVIN RC filter (10 us)
+             ("R", "10k", "3V3", pg)] + en_parts
+    for name, (rt, rb) in straps.items():
+        if rt: small.append(("R", rt, f"{u}_BP1V5", f"{u}_{name}"))
+        small.append(("R", rb, f"{u}_{name}", "GND"))
+    assert len(small) <= len(grid), (u, len(small))
+    ci = ri = 0
+    for (kind, val, a, bn), (x, y) in zip(small, grid):
+        if kind == "C": C(f"C{base+20+ci}", val, a, x, y, bnet=bn); ci += 1
+        else: R(f"R{base+ri}", val, a, bn, x, y); ri += 1
+    C(f"C{base+30}", "4.7uF", f"{u}_VDD5", gx + 16, 239.5, rot=0, fp=C0603)           # VDD5 >= 4.7 uF, 10 V
+#              VSEL (Rtop, Rbot)   MSEL1          MSEL2              ADRSEL
+buck(501, 58, "5V", "BUCK5_EN", "BUCK5_PG",
+     {"VSEL": ("1.87k", "12.1k"), "MSEL1": (None, "31.6k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "4.64k")},   # 5.0 V, PMBus 0x10
+     [("R", "100k", "BUCK5_EN", "GND")])                                                                    # on when management says so
+buck(601, 84, "3V3", "BUCK3_EN", "BUCK3_PG",
+     {"VSEL": ("12.1k", "21.5k"), "MSEL1": (None, "31.6k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "5.62k")},   # 3.32 V, PMBus 0x11
+     [("R", "100k", "VIN_12V", "BUCK3_EN"), ("R", "15k", "BUCK3_EN", "GND")])  # always-on standby rail: EN/UVLO 1.1 V -> starts at ~8.4 V in
+# PMBus pull-ups (one set for both bucks)
+R("R701", "4.7k", "3V3", "PMBUS_CLK", 150, 226); R("R702", "4.7k", "3V3", "PMBUS_DAT", 151.2, 226); R("R703", "10k", "3V3", "PMBUS_ALERT_N", 152.4, 226)
+
 # rear I/O along the bottom edge: QSFP28 uplink, 4 x USB-C recovery, status panel
 QS = {"1": "GND", "4": "GND", "7": "GND", "13": "GND", "16": "GND", "19": "GND", "20": "GND", "23": "GND", "26": "GND",
       "32": "GND", "35": "GND", "38": "GND", "10": "3V3", "29": "3V3", "30": "3V3",
       "36": "Q_TX1_P", "37": "Q_TX1_N", "3": "Q_TX2_P", "2": "Q_TX2_N", "33": "Q_TX3_P", "34": "Q_TX3_N", "6": "Q_TX4_P", "5": "Q_TX4_N",
       "17": "Q_RX1_P", "18": "Q_RX1_N", "22": "Q_RX2_P", "21": "Q_RX2_N", "14": "Q_RX3_P", "15": "Q_RX3_N", "25": "Q_RX4_P", "24": "Q_RX4_N",
       "8": "QSFP_MODSEL_N", "9": "QSFP_RESET_N", "11": "QSFP_SCL", "12": "QSFP_SDA", "27": "QSFP_MODPRS_N", "28": "QSFP_INT_N", "31": "QSFP_LPMODE"}
-add("Console", "QSFP28_Host_38P_Cage_Placeholder", "J2", 120, H - 44.6, 0, "QSFP28 4x25G uplink", QS)   # in the gap between modules 2 and 3, mouth at the rear edge
+add("Console", "QSFP28_Host_38P_Cage_Placeholder", "J2", 120, H - 44.6, 0, "QSFP28 4x25G uplink", QS)   # centre channel, mouth at the rear edge
 for m in range(4):
     add("Connector_USB", "USB_C_Receptacle_HRO_TYPE-C-31-M-12", f"J{40+m}", 162 + m * 13, H - 4.2, 0, f"USB-C M{m} recovery",
         {"A1": "GND", "B1": "GND", "A12": "GND", "B12": "GND", "SH": "GND", "A6": f"M{m}_USB0_P", "B6": f"M{m}_USB0_P",
          "A7": f"M{m}_USB0_N", "B7": f"M{m}_USB0_N", "A5": f"M{m}_CC1", "B5": f"M{m}_CC2",
          "A4": f"M{m}_USB_VBUS", "B9": f"M{m}_USB_VBUS", "A9": f"M{m}_USB_VBUS", "B4": f"M{m}_USB_VBUS"})
-    add("Resistor_SMD", "R_0402_1005Metric", f"R{10+2*m}", 162 + m * 13 - 2, H - 12, 0, "5.1k", {"1": f"M{m}_CC1", "2": "GND"})
-    add("Resistor_SMD", "R_0402_1005Metric", f"R{11+2*m}", 162 + m * 13 + 2, H - 12, 0, "5.1k", {"1": f"M{m}_CC2", "2": "GND"})
+    R(f"R{10+2*m}", "5.1k", f"M{m}_CC1", "GND", 162 + m * 13 - 2, H - 12, rot=0)
+    R(f"R{11+2*m}", "5.1k", f"M{m}_CC2", "GND", 162 + m * 13 + 2, H - 12, rot=0)
 # status panel cable (the black CyberCore status panel): JST PH 4-pin: 1 5V, 2 D-, 3 D+, 4 GND
-add("Connector_JST", "JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical", "J3", 140, Y + 4, 0, "STATUS PANEL",
+add("Connector_JST", "JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical", "J3", 140, 246, 0, "STATUS PANEL",
     {"1": "5V", "2": "PANEL_USB_N", "3": "PANEL_USB_P", "4": "GND"})
-# system management header: bucks, MV/SV power-good, QSFP sideband (odd pins), GND (even pins)
-SYS = ["BUCK5_EN", "BUCK5_PG", "BUCK3_EN", "BUCK3_PG"] + [f"M{m}_MV_PG" for m in range(4)] + [f"M{m}_SV_PG" for m in range(4)] + \
+# system management header: buck control + PMBus, MV power-good, HV current monitors, QSFP sideband (odd), GND (even)
+SYS = ["BUCK5_EN", "BUCK5_PG", "PMBUS_CLK", "PMBUS_DAT"] + [f"M{m}_MV_PG" for m in range(4)] + [f"M{m}_HV_IMON" for m in range(4)] + \
       ["QSFP_MODSEL_N", "QSFP_RESET_N", "QSFP_SCL", "QSFP_SDA", "QSFP_MODPRS_N", "QSFP_INT_N", "QSFP_LPMODE", "3V3"]
+assert len(SYS) == 20
 sp = {str(2 * i + 1): s for i, s in enumerate(SYS)}; sp.update({str(2 * i + 2): "GND" for i in range(20)})
-add("Connector_PinHeader_1.27mm", "PinHeader_2x20_P1.27mm_Vertical_SMD", "J4", 94, 224, 90, "SYS MGMT", sp)
+add("Connector_PinHeader_1.27mm", "PinHeader_2x20_P1.27mm_Vertical_SMD", "J4", 190, 228, 90, "SYS MGMT", sp)
 
 # corner mounting holes (case)
 for i, (x, y) in enumerate([(4.5, 4.5), (W - 4.5, 4.5), (4.5, H - 4.5), (W - 4.5, H - 4.5)]):
@@ -291,10 +413,10 @@ def text(s, x, y, size, layer=pcbnew.F_SilkS, thick=None):
     t.SetTextSize(VECTOR2I(FromMM(size), FromMM(size))); t.SetTextThickness(FromMM(thick or max(0.15, size * 0.15)))
     if layer == pcbnew.B_SilkS: t.SetMirrored(True)
     b.Add(t)
-for m, (cx, cy) in enumerate(MOD): text(f"THOR {m}", cx + 30, cy - 30, 2.5)
-text("CyberCore", 52.0, 224.0, 4.0, thick=0.7)
-text("CONSOLE rev 0.1 PoC | 4 x Jetson T5000 | 512 GB | DeepSeek V3.1", 60.0, 229.0, 1.1)
-text("CyberCore Console rev 0.1 PoC (unrouted)  |  open hardware  |  github.com/Louistuis/cybercore", 120, 205, 1.6, pcbnew.B_SilkS)
+for m, (cx, cy) in enumerate(MOD): text(f"THOR {m}", cx, cy + 20, 2.5)
+text("CyberCore", 30.0, 222.0, 4.0, thick=0.7)
+text("CONSOLE rev 0.2 PoC | 4 x T5000 | 512 GB", 30.0, 228.0, 1.0)
+text("CyberCore Console rev 0.2 PoC (unrouted)  |  open hardware  |  github.com/Louistuis/cybercore", 120, 109.5, 1.6, pcbnew.B_SilkS)
 
 out = os.path.join(HERE, "console.kicad_pcb")
 b.Save(out)
@@ -311,7 +433,7 @@ stack += ['\t\t\t(layer "B.Mask" (type "Bottom Solder Mask") (color "#060606F5")
           '\t\t\t(layer "B.SilkS" (type "Bottom Silk Screen") (color "White"))', '\t\t\t(copper_finish "ENIG")', '\t\t\t(dielectric_constraints no)', '\t\t)']
 if "(stackup" not in s:
     i = s.index("(setup") + len("(setup"); s = s[:i] + "\n" + "\n".join(stack) + "\n" + s[i:]; open(out, "w").write(s)
-# Design rules (HDI class for the 1.3 mm module connector) live in console.kicad_pro, which is kept in the repo as a
+# Design rules (HDI class for the fine-pitch module connector) live in console.kicad_pro, which is kept in the repo as a
 # source file: min clearance 0.10, min track 0.09, via 0.30/0.15, copper-edge 0.25.
 single = [n for n in nets if sum(1 for f in b.GetFootprints() for p in f.Pads() if p.GetNetname() == n) < 2]
 print(f"wrote {out}: {len(b.GetFootprints())} footprints, {len(nets)} nets; one-pad nets: {single}")
