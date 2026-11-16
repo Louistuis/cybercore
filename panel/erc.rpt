@@ -1,0 +1,390 @@
+ERC report (2026-11-16T18:57:36, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(36.83 mm, 176.53 mm): Symbol C8 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(36.83 mm, 176.53 mm): Symbol C8 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(36.83 mm, 189.23 mm): Symbol C21 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(36.83 mm, 189.23 mm): Symbol C21 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(38.10 mm, 95.25 mm): Symbol C7 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(38.10 mm, 95.25 mm): Symbol C7 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(38.10 mm, 128.27 mm): Symbol R6 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(38.10 mm, 128.27 mm): Symbol R6 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(39.37 mm, 31.75 mm): Symbol SW1 [P_SW1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(39.37 mm, 31.75 mm): Symbol SW1 [P_SW1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(49.53 mm, 144.78 mm): Symbol D7 [P_D7]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(49.53 mm, 144.78 mm): Symbol D7 [P_D7]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(54.61 mm, 160.02 mm): Symbol D13 [P_D13]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(54.61 mm, 160.02 mm): Symbol D13 [P_D13]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(67.31 mm, 176.53 mm): Symbol C10 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(67.31 mm, 176.53 mm): Symbol C10 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(67.31 mm, 189.23 mm): Symbol C22 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(67.31 mm, 189.23 mm): Symbol C22 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(68.58 mm, 95.25 mm): Symbol R1 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(68.58 mm, 95.25 mm): Symbol R1 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(76.20 mm, 31.75 mm): Symbol SW2 [P_SW2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(76.20 mm, 31.75 mm): Symbol SW2 [P_SW2]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(80.01 mm, 129.54 mm): Symbol D1 [P_D1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(80.01 mm, 129.54 mm): Symbol D1 [P_D1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(97.79 mm, 176.53 mm): Symbol C11 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(97.79 mm, 176.53 mm): Symbol C11 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(97.79 mm, 189.23 mm): Symbol C23 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(97.79 mm, 189.23 mm): Symbol C23 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(99.06 mm, 95.25 mm): Symbol R2 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(99.06 mm, 95.25 mm): Symbol R2 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(105.41 mm, 144.78 mm): Symbol D8 [P_D8]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(105.41 mm, 144.78 mm): Symbol D8 [P_D8]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(118.11 mm, 31.75 mm): Symbol SW3 [P_SW3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(118.11 mm, 31.75 mm): Symbol SW3 [P_SW3]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(120.65 mm, 160.02 mm): Symbol D14 [P_D14]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(120.65 mm, 160.02 mm): Symbol D14 [P_D14]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(128.27 mm, 176.53 mm): Symbol C12 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(128.27 mm, 176.53 mm): Symbol C12 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(128.27 mm, 189.23 mm): Symbol C24 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(128.27 mm, 189.23 mm): Symbol C24 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(129.54 mm, 95.25 mm): Symbol R3 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(129.54 mm, 95.25 mm): Symbol R3 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(135.89 mm, 129.54 mm): Symbol D2 [P_D2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(135.89 mm, 129.54 mm): Symbol D2 [P_D2]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(158.75 mm, 176.53 mm): Symbol C13 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(158.75 mm, 176.53 mm): Symbol C13 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(158.75 mm, 189.23 mm): Symbol C25 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(158.75 mm, 189.23 mm): Symbol C25 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(161.29 mm, 31.75 mm): Symbol TP1 [P_TP1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(161.29 mm, 31.75 mm): Symbol TP1 [P_TP1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(162.56 mm, 144.78 mm): Symbol D9 [P_D9]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(162.56 mm, 144.78 mm): Symbol D9 [P_D9]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(167.64 mm, 95.25 mm): Symbol F1 [P_F1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(167.64 mm, 95.25 mm): Symbol F1 [P_F1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(186.69 mm, 160.02 mm): Symbol D15 [P_D15]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(186.69 mm, 160.02 mm): Symbol D15 [P_D15]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(189.23 mm, 176.53 mm): Symbol C14 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(189.23 mm, 176.53 mm): Symbol C14 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(191.77 mm, 129.54 mm): Symbol D3 [P_D3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(191.77 mm, 129.54 mm): Symbol D3 [P_D3]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(196.85 mm, 31.75 mm): Symbol TP2 [P_TP2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(196.85 mm, 31.75 mm): Symbol TP2 [P_TP2]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(198.12 mm, 189.23 mm): Symbol R4 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(198.12 mm, 189.23 mm): Symbol R4 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(208.28 mm, 105.41 mm): Symbol J1 [P_J1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(208.28 mm, 105.41 mm): Symbol J1 [P_J1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(219.71 mm, 176.53 mm): Symbol C15 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(219.71 mm, 176.53 mm): Symbol C15 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(220.98 mm, 144.78 mm): Symbol D10 [P_D10]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(220.98 mm, 144.78 mm): Symbol D10 [P_D10]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(227.33 mm, 31.75 mm): Symbol TP3 [P_TP3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(227.33 mm, 31.75 mm): Symbol TP3 [P_TP3]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(240.03 mm, 160.02 mm): Symbol D16 [P_D16]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(240.03 mm, 160.02 mm): Symbol D16 [P_D16]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(245.11 mm, 193.04 mm): Symbol J2 [P_J2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(245.11 mm, 193.04 mm): Symbol J2 [P_J2]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(247.65 mm, 129.54 mm): Symbol D4 [P_D4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(247.65 mm, 129.54 mm): Symbol D4 [P_D4]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(248.92 mm, 96.52 mm): Symbol U2 [P_U2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(248.92 mm, 96.52 mm): Symbol U2 [P_U2]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(250.19 mm, 176.53 mm): Symbol C16 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(250.19 mm, 176.53 mm): Symbol C16 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(257.81 mm, 31.75 mm): Symbol TP4 [P_TP4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(257.81 mm, 31.75 mm): Symbol TP4 [P_TP4]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(280.67 mm, 176.53 mm): Symbol C17 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(280.67 mm, 176.53 mm): Symbol C17 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(283.21 mm, 144.78 mm): Symbol D11 [P_D11]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(283.21 mm, 144.78 mm): Symbol D11 [P_D11]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(289.56 mm, 97.79 mm): Symbol U3 [P_U3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(289.56 mm, 97.79 mm): Symbol U3 [P_U3]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(299.72 mm, 191.77 mm): Symbol J3 [P_J3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(299.72 mm, 191.77 mm): Symbol J3 [P_J3]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(302.26 mm, 57.15 mm): Symbol U1 [P_U1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(302.26 mm, 57.15 mm): Symbol U1 [P_U1]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(302.26 mm, 161.29 mm): Symbol U4 [P_U4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(302.26 mm, 161.29 mm): Symbol U4 [P_U4]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(303.53 mm, 129.54 mm): Symbol D5 [P_D5]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(303.53 mm, 129.54 mm): Symbol D5 [P_D5]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(311.15 mm, 176.53 mm): Symbol C18 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(311.15 mm, 176.53 mm): Symbol C18 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(326.39 mm, 95.25 mm): Symbol C1 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(326.39 mm, 95.25 mm): Symbol C1 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(340.36 mm, 189.23 mm): Symbol R7 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(340.36 mm, 189.23 mm): Symbol R7 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(341.63 mm, 176.53 mm): Symbol C19 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(341.63 mm, 176.53 mm): Symbol C19 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(349.25 mm, 144.78 mm): Symbol D12 [P_D12]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(349.25 mm, 144.78 mm): Symbol D12 [P_D12]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(351.79 mm, 31.75 mm): Symbol C3 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(351.79 mm, 31.75 mm): Symbol C3 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(351.79 mm, 158.75 mm): Symbol C4 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(351.79 mm, 158.75 mm): Symbol C4 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(358.14 mm, 95.25 mm): Symbol C2 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(358.14 mm, 95.25 mm): Symbol C2 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(359.41 mm, 129.54 mm): Symbol D6 [P_D6]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(359.41 mm, 129.54 mm): Symbol D6 [P_D6]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(372.11 mm, 176.53 mm): Symbol C20 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(372.11 mm, 176.53 mm): Symbol C20 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(375.92 mm, 189.23 mm): Symbol R8 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(375.92 mm, 189.23 mm): Symbol R8 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(382.27 mm, 158.75 mm): Symbol C5 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(382.27 mm, 158.75 mm): Symbol C5 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(383.54 mm, 31.75 mm): Symbol C6 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(383.54 mm, 31.75 mm): Symbol C6 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library ''
+    ; warning
+    @(388.62 mm, 95.25 mm): Symbol R5 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'panel'
+    ; warning
+    @(388.62 mm, 95.25 mm): Symbol R5 [R]
+
+ ** ERC messages: 126  Errors 0  Warnings 126
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

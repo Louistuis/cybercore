@@ -1,0 +1,12 @@
+# NVIDIA documents and their attachments: download them yourself (see console/README.md)
+console/datasheets/
+# intermediate / machine-specific files
+*.dsn
+*.ses
+*.log
+*.kicad_prl
+*-backups/
+fp-info-cache
+__pycache__/
+panel/jlc/gerbers/
+.DS_Store

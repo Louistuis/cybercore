@@ -1,0 +1,154 @@
+** Drc report for cybercore.kicad_pcb **
+** Created on 2026-11-16T15:19:57 **
+** Report includes: Errors, Warnings **
+
+** Found 34 DRC violations **
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(54.0000 mm, 50.0000 mm): Segment on Edge.Cuts
+    @(228.0000 mm, 49.5000 mm): Reference field of J14
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(54.0000 mm, 50.0000 mm): Segment on Edge.Cuts
+    @(217.1000 mm, 50.8000 mm): Segment of J14 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(54.0000 mm, 50.0000 mm): Segment on Edge.Cuts
+    @(202.0000 mm, 49.5000 mm): Reference field of J13
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(54.0000 mm, 50.0000 mm): Segment on Edge.Cuts
+    @(191.1000 mm, 50.8000 mm): Segment of J13 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+    @(331.0000 mm, 212.0000 mm): Reference field of U206
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(331.0000 mm, 168.0000 mm): Reference field of U204
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(331.0000 mm, 190.0000 mm): Reference field of U205
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(295.0000 mm, 153.5000 mm): Reference field of U2
+    @(287.8000 mm, 137.3000 mm): Rectangle of U202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+    @(259.0000 mm, 190.0000 mm): Reference field of U211
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+    @(259.0000 mm, 168.0000 mm): Reference field of U210
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.0000 mm, 212.0000 mm): Reference field of U212
+    @(259.8000 mm, 154.8000 mm): Rectangle of U2 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(287.8000 mm, 317.3000 mm): Rectangle of U402 on F.Silkscreen
+    @(295.0000 mm, 333.5000 mm): Reference field of U4
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(331.0000 mm, 392.0000 mm): Reference field of U406
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(331.0000 mm, 370.0000 mm): Reference field of U405
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+    @(331.0000 mm, 348.0000 mm): Reference field of U404
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+    @(259.0000 mm, 392.0000 mm): Reference field of U412
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.0000 mm, 370.0000 mm): Reference field of U411
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(259.8000 mm, 334.8000 mm): Rectangle of U4 on F.Silkscreen
+    @(259.0000 mm, 348.0000 mm): Reference field of U410
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(171.0000 mm, 392.0000 mm): Reference field of U306
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(127.8000 mm, 317.3000 mm): Rectangle of U302 on F.Silkscreen
+    @(135.0000 mm, 333.5000 mm): Reference field of U3
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+    @(99.0000 mm, 370.0000 mm): Reference field of U311
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.0000 mm, 392.0000 mm): Reference field of U312
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+    @(99.0000 mm, 348.0000 mm): Reference field of U310
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+    @(171.0000 mm, 370.0000 mm): Reference field of U305
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 334.8000 mm): Rectangle of U3 on F.Silkscreen
+    @(171.0000 mm, 348.0000 mm): Reference field of U304
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.0000 mm, 212.0000 mm): Reference field of U112
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+    @(99.0000 mm, 190.0000 mm): Reference field of U111
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+    @(99.0000 mm, 168.0000 mm): Reference field of U110
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+    @(171.0000 mm, 212.0000 mm): Reference field of U106
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(171.0000 mm, 190.0000 mm): Reference field of U105
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(171.0000 mm, 168.0000 mm): Reference field of U104
+    @(99.8000 mm, 154.8000 mm): Rectangle of U1 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(135.0000 mm, 153.5000 mm): Reference field of U1
+    @(127.8000 mm, 137.3000 mm): Rectangle of U102 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(430.0000 mm, 175.0000 mm): PCB text '4x PCIe 5.0 x16' on F.Silkscreen
+    @(416.3700 mm, 173.7000 mm): Rectangle of J2 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(430.0000 mm, 175.0000 mm): PCB text '4x PCIe 5.0 x16' on F.Silkscreen
+    @(436.6900 mm, 173.7000 mm): Rectangle of J3 on F.Silkscreen
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **
