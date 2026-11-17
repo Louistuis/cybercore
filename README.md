@@ -48,4 +48,4 @@ What that means:
 
 **Source location:** https://github.com/Louistuis/cybercore
 
-Hardware is provided as is: placeholder footprints are marked, so check them before you order anything.
+Hardware is provided as is: each README lists the dimensions that are not confirmed yet, so check them before you order anything.

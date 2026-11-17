@@ -14,8 +14,9 @@ Real in rev 0.2:
   - power: TI TPS546B24A bucks (12 V -> 5 V and 3.3 V, 20 A each, strap resistors from the datasheet tables),
     TI TPS25982 eFuses per module (12 V HV and 5 V MV), TI TPS22918 per module (3.3 V SV); land patterns from TI's drawings
   - MGBE reference clock: 156.25 MHz HCSL oscillator per module (SCTF pinout + land pattern), terminated as in DG-12084 fig. 7-12
+  - QSFP28: TE 2170704 cage + SFF-8679 connector layout from TE's customer drawing 2170704 rev G8, sheet 15
 Still placeholder or unverified (see README.md): the exact Mirror Mezz pad size / pitch (no Molex 203456 drawing),
-the QSFP28 footprint (no readable TE / U-MAX drawing yet), buck compensation and
+the QSFP28 contact pad size (drawn, not dimensioned, on TE's sheet), buck compensation and
 the 5 V MV current limit. Nothing is routed."""
 import os, sys, re, glob, math, zipfile, xml.etree.ElementTree as ET, pcbnew
 from pcbnew import FromMM, VECTOR2I, EDA_ANGLE, DEGREES_T
@@ -147,15 +148,56 @@ write_fp("TI_RVF0040A_LQFN-CLIP-40_5x7mm_P0.5mm_EP3.3x5.3mm",
          "TI RVF0040A LQFN-CLIP-40 (TPS546B24A), pad 41 = thermal pad / PGND. TI land pattern",
          [rect("F.Fab", 5.0, 7.0), dot(-3.1, -3.5)], p, (5.9, 7.9))
 
-# 4) QSFP28 host connector + cage (SFF-8679 38-pin): STILL A PLACEHOLDER. 2 rows of 19 at 0.8 mm, cage outline
-#    approximate. TE's and U-MAX's drawings could not be downloaded (bot-blocked), so no real land pattern yet.
+# 4) QSFP28 host connector + press-fit cage, from TE customer drawing 2170704 rev G8, sheet 15 ("Recommended PCB
+#    layout, single type of 2 rear holes of legs", single-sided board, PCB tolerance +-0.05). Datums -L- / -K- are the
+#    connector's two 1.55 mm alignment holes; every number below is relative to -L-, x to the right, y towards the
+#    connector rear (away from the bezel). Values read from the drawing's dimensions and checked against its CAD geometry:
+#      connector holes   L (0, 0), K (16.80, 0), 1.55 +-0.05 non-plated
+#      12 x 1.05 +-0.05 compliant (press-fit) cage holes:
+#        left  x -1.10 at y +3.10, -7.60, -16.60, -25.60, -34.60
+#        right x 17.90 at y +7.60, -3.10, -12.10, -21.10, -30.10
+#        rear  y 12.79 at x 3.40 and 10.60
+#      cage on the board: x -2.675 .. 19.475 (22.15 wide), y -37.00 (bezel end, max) .. 13.49 (rear, min)
+#      connector body (parts keep-out, traces allowed): 19.20 wide, y 12.49 down to -1.69, centre notch 15.02 wide to -3.10
+#      the rest of the cage area: no parts and no traces (chassis ground excepted)
+#    Contacts (SFF-8679 numbering), 0.80 mm pitch: pins 1-19 along the bezel-side row (y 7.37, x 1.40 .. 15.80 left to
+#    right), pins 20-38 along the rear row (y 9.88, x 15.40 .. 1.00 right to left), half a pitch offset.
+#    The contact pads are drawn but not dimensioned on the sheet: 0.35 x 1.80 mm is their drawn outline. Check against
+#    SFF-8679's host pad table before ordering. Board must be at least 1.57 mm thick (note 6); ours is 1.6 mm.
+#    Footprint origin = midway between L and K. KiCad y points to the bezel, so y_kicad = -y_drawing.
+QX = 8.40
+qd = lambda x, y: (x - QX, -y)
 q = []
-for i in range(19):
-    q.append(smd(i + 1, (i - 9) * 0.8, -1.6, 0.45, 1.6))
-    q.append(smd(38 - i, (i - 9) * 0.8, 1.6, 0.45, 1.6))
-write_fp("QSFP28_Host_38P_Cage_Placeholder", "QSFP28 host connector + cage, PLACEHOLDER geometry (SFF-8679 pin numbers)",
-         [rect("F.Fab", 18.75, 52.0, 0, 18.0), rect("F.SilkS", 19.2, 52.4, 0, 18.0, 0.12), ftext("QSFP28 cage, mouth at board edge", 0, 40)],
-         q, (19.5, 53.0), crt_xy=(0, 18.0))
+for n in range(1, 20):
+    q.append(smd(n, *qd(1.40 + (n - 1) * 0.80, 7.369), 0.35, 1.80, shape="oval"))
+for n in range(20, 39):
+    q.append(smd(n, *qd(15.40 - (n - 20) * 0.80, 9.878), 0.35, 1.80, shape="oval"))
+for hx in (0.0, 16.80):
+    x, y = qd(hx, 0)
+    q.append(f'  (pad "" np_thru_hole circle (at {x:.3f} {y:.3f}) (size 1.55 1.55) (drill 1.55) (layers "*.Cu" "*.Mask"))')
+CAGE_HOLES = [(-1.10, y) for y in (3.10, -7.60, -16.60, -25.60, -34.60)] + \
+             [(17.90, y) for y in (7.60, -3.10, -12.10, -21.10, -30.10)] + [(3.40, 12.79), (10.60, 12.79)]
+for hx, hy in CAGE_HOLES:
+    x, y = qd(hx, hy)
+    q.append(f'  (pad "SH" thru_hole circle (at {x:.3f} {y:.3f}) (size 1.45 1.45) (drill 1.05) (layers "*.Cu" "*.Mask"))')
+def poly(pts): return " ".join("(xy %.3f %.3f)" % qd(x, y) for x, y in pts)
+CAGE = [(-2.675, 13.49), (19.475, 13.49), (19.475, -37.0), (-2.675, -37.0)]
+BODY = [(-1.20, 12.49), (18.00, 12.49), (18.00, -1.69), (15.91, -1.69), (15.91, -3.10), (0.89, -3.10), (0.89, -1.69), (-1.20, -1.69)]
+U = [(-2.675, 13.49), (-1.20, 13.49), (-1.20, -1.69), (0.89, -1.69), (0.89, -3.10), (15.91, -3.10), (15.91, -1.69),
+     (18.00, -1.69), (18.00, 13.49), (19.475, 13.49), (19.475, -37.0), (-2.675, -37.0)]
+CAGE_KEEPOUT = ('  (zone (net 0) (net_name "") (layers "F.Cu") (name "QSFP cage: no parts, no traces") (hatch edge 0.5)'
+                ' (connect_pads (clearance 0)) (min_thickness 0.25) (filled_areas_thickness no)'
+                ' (keepout (tracks not_allowed) (vias not_allowed) (pads allowed) (copperpour allowed) (footprints not_allowed))'
+                ' (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))'
+                f' (polygon (pts {poly(U)})))')
+fab = lambda pts, layer, w: f'  (fp_poly (pts {poly(pts)}) (stroke (width {w}) (type solid)) (fill none) (layer "{layer}"))'
+SILK = [(-2.8, 13.62), (19.6, 13.62), (19.6, -36.6), (-2.8, -36.6)]   # stops short of the board edge
+write_fp("TE_2170704_QSFP28_Cage_SFF8679_38P",
+         "TE 2170704 QSFP28 press-fit cage + 38-pin SFF-8679 host connector, layout from TE customer drawing 2170704 rev G8 "
+         "sheet 15 (single-sided, 2 rear legs). Contact pad size is the drawn outline, confirm against SFF-8679",
+         [fab(CAGE, "F.Fab", 0.15), fab(BODY, "F.Fab", 0.1), fab(SILK, "F.SilkS", 0.12),
+          dot(*qd(1.40, 5.9)), ftext("QSFP28 cage (TE 2170704), bezel this end", 0, 30), CAGE_KEEPOUT],
+         q, (22.4, 50.75), attr="smd", crt_xy=(0, 11.755))
 
 # 5) SCTF 5Z-series 5.0 x 3.2 mm 6-pad oscillator (SX5DF156.250B20F30HNN), land pattern from SCTF's 5Z spec sheet
 #    ("Solder pad layout"): 0.9 x 1.2 mm pads, 1.27 mm pitch (2.54 outer), rows 2.1 mm apart centre to centre.
@@ -376,12 +418,12 @@ buck(601, 84, "3V3", "BUCK3_EN", "BUCK3_PG",
 R("R701", "4.7k", "3V3", "PMBUS_CLK", 150, 226); R("R702", "4.7k", "3V3", "PMBUS_DAT", 151.2, 226); R("R703", "10k", "3V3", "PMBUS_ALERT_N", 152.4, 226)
 
 # rear I/O along the bottom edge: QSFP28 uplink, 4 x USB-C recovery, status panel
-QS = {"1": "GND", "4": "GND", "7": "GND", "13": "GND", "16": "GND", "19": "GND", "20": "GND", "23": "GND", "26": "GND",
+QS = {"SH": "GND", "1": "GND", "4": "GND", "7": "GND", "13": "GND", "16": "GND", "19": "GND", "20": "GND", "23": "GND", "26": "GND",
       "32": "GND", "35": "GND", "38": "GND", "10": "3V3", "29": "3V3", "30": "3V3",
       "36": "Q_TX1_P", "37": "Q_TX1_N", "3": "Q_TX2_P", "2": "Q_TX2_N", "33": "Q_TX3_P", "34": "Q_TX3_N", "6": "Q_TX4_P", "5": "Q_TX4_N",
       "17": "Q_RX1_P", "18": "Q_RX1_N", "22": "Q_RX2_P", "21": "Q_RX2_N", "14": "Q_RX3_P", "15": "Q_RX3_N", "25": "Q_RX4_P", "24": "Q_RX4_N",
       "8": "QSFP_MODSEL_N", "9": "QSFP_RESET_N", "11": "QSFP_SCL", "12": "QSFP_SDA", "27": "QSFP_MODPRS_N", "28": "QSFP_INT_N", "31": "QSFP_LPMODE"}
-add("Console", "QSFP28_Host_38P_Cage_Placeholder", "J2", 120, H - 44.6, 0, "QSFP28 4x25G uplink", QS)   # centre channel, mouth at the rear edge
+add("Console", "TE_2170704_QSFP28_Cage_SFF8679_38P", "J2", 120, H - 37.0, 0, "QSFP28 4x25G uplink", QS)   # centre channel, cage end at the rear edge
 for m in range(4):
     add("Connector_USB", "USB_C_Receptacle_HRO_TYPE-C-31-M-12", f"J{40+m}", 162 + m * 13, H - 4.2, 0, f"USB-C M{m} recovery",
         {"A1": "GND", "B1": "GND", "A12": "GND", "B12": "GND", "SH": "GND", "A6": f"M{m}_USB0_P", "B6": f"M{m}_USB0_P",
