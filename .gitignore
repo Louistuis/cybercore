@@ -10,3 +10,10 @@ fp-info-cache
 __pycache__/
 panel/jlc/gerbers/
 .DS_Store
+# vendor datasheets for the management board: download them yourself (see mgmt/README.md)
+mgmt/datasheets/
+mgmt/jlc/gerbers/
+# console routing intermediates (rebuilt by console/route.py prep)
+console/console_prep.kicad_pcb
+console/console_prep.kicad_pro
+console/console_prep.kicad_pcb.tmp.kicad_pcb
