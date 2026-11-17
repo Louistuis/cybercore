@@ -1,0 +1,1332 @@
+ERC report (2026-11-17T09:01:34, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 92.71 mm): Symbol R104 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 92.71 mm): Symbol R104 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(38.10 mm, 283.21 mm): Symbol C202 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 283.21 mm): Symbol C202 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 458.47 mm): Symbol R315 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 458.47 mm): Symbol R315 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(38.10 mm, 514.35 mm): Symbol C304 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 514.35 mm): Symbol C304 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 552.45 mm): Symbol R319 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 552.45 mm): Symbol R319 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 613.41 mm): Symbol R403 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 613.41 mm): Symbol R403 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(38.10 mm, 715.01 mm): Symbol C408 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 715.01 mm): Symbol C408 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 775.97 mm): Symbol R8 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 775.97 mm): Symbol R8 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(38.10 mm, 788.67 mm): Symbol R11 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 788.67 mm): Symbol R11 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(38.10 mm, 935.99 mm): Symbol C12 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(38.10 mm, 935.99 mm): Symbol C12 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(39.37 mm, 697.23 mm): Symbol C406 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(39.37 mm, 697.23 mm): Symbol C406 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'TestPoint'
+    ; warning
+    @(39.37 mm, 801.37 mm): Symbol TP2 [P_TP2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(39.37 mm, 801.37 mm): Symbol TP2 [P_TP2]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(39.37 mm, 864.87 mm): Symbol R5 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(39.37 mm, 864.87 mm): Symbol R5 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(39.37 mm, 953.77 mm): Symbol C20 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(39.37 mm, 953.77 mm): Symbol C20 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(40.64 mm, 194.31 mm): Symbol C109 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(40.64 mm, 194.31 mm): Symbol C109 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(40.64 mm, 311.15 mm): Symbol R214 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(40.64 mm, 311.15 mm): Symbol R214 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(40.64 mm, 669.29 mm): Symbol R416 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(40.64 mm, 669.29 mm): Symbol R416 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(44.45 mm, 356.87 mm): Symbol R218 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(44.45 mm, 356.87 mm): Symbol R218 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(45.72 mm, 176.53 mm): Symbol R106 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(45.72 mm, 176.53 mm): Symbol R106 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(46.99 mm, 255.27 mm): Symbol R201 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(46.99 mm, 255.27 mm): Symbol R201 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(52.07 mm, 120.65 mm): Symbol R111 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(52.07 mm, 120.65 mm): Symbol R111 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(54.61 mm, 534.67 mm): Symbol U307 [P_U307]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(54.61 mm, 534.67 mm): Symbol U307 [P_U307]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(54.61 mm, 641.35 mm): Symbol R410 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(54.61 mm, 641.35 mm): Symbol R410 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(62.23 mm, 431.80 mm): Symbol U301 [P_U301]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(62.23 mm, 431.80 mm): Symbol U301 [P_U301]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(66.04 mm, 341.63 mm): Symbol U206 [P_U206]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(66.04 mm, 341.63 mm): Symbol U206 [P_U206]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(68.58 mm, 514.35 mm): Symbol R320 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(68.58 mm, 514.35 mm): Symbol R320 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(68.58 mm, 775.97 mm): Symbol R9 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(68.58 mm, 775.97 mm): Symbol R9 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(68.58 mm, 935.99 mm): Symbol C13 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(68.58 mm, 935.99 mm): Symbol C13 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(69.85 mm, 156.21 mm): Symbol U104 [P_U104]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(69.85 mm, 156.21 mm): Symbol U104 [P_U104]
+[footprint_link_issues]: The current configuration does not include the footprint library 'TestPoint'
+    ; warning
+    @(69.85 mm, 801.37 mm): Symbol TP3 [P_TP3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(69.85 mm, 801.37 mm): Symbol TP3 [P_TP3]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(71.12 mm, 494.03 mm): Symbol U303 [P_U303]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(71.12 mm, 494.03 mm): Symbol U303 [P_U303]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(71.12 mm, 715.01 mm): Symbol C409 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(71.12 mm, 715.01 mm): Symbol C409 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Inductor_SMD'
+    ; warning
+    @(71.12 mm, 953.77 mm): Symbol L1 [L]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(71.12 mm, 953.77 mm): Symbol L1 [L]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_PinHeader_1.27mm'
+    ; warning
+    @(72.39 mm, 55.88 mm): Symbol J20 [P_J20]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(72.39 mm, 55.88 mm): Symbol J20 [P_J20]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(74.93 mm, 788.67 mm): Symbol R16 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(74.93 mm, 788.67 mm): Symbol R16 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(78.74 mm, 283.21 mm): Symbol R209 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(78.74 mm, 283.21 mm): Symbol R209 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(78.74 mm, 613.41 mm): Symbol R404 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(78.74 mm, 613.41 mm): Symbol R404 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(78.74 mm, 697.23 mm): Symbol R406 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(78.74 mm, 697.23 mm): Symbol R406 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(81.28 mm, 867.41 mm): Symbol U3 [P_U3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(81.28 mm, 867.41 mm): Symbol U3 [P_U3]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(83.82 mm, 92.71 mm): Symbol R105 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(83.82 mm, 92.71 mm): Symbol R105 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(87.63 mm, 255.27 mm): Symbol R202 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(87.63 mm, 255.27 mm): Symbol R202 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(88.90 mm, 198.12 mm): Symbol U109 [P_U109]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(88.90 mm, 198.12 mm): Symbol U109 [P_U109]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(88.90 mm, 311.15 mm): Symbol R216 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(88.90 mm, 311.15 mm): Symbol R216 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(96.52 mm, 120.65 mm): Symbol R112 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(96.52 mm, 120.65 mm): Symbol R112 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(99.06 mm, 775.97 mm): Symbol R12 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(99.06 mm, 775.97 mm): Symbol R12 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(99.06 mm, 935.99 mm): Symbol C14 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(99.06 mm, 935.99 mm): Symbol C14 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(100.33 mm, 641.35 mm): Symbol R411 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(100.33 mm, 641.35 mm): Symbol R411 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'TestPoint'
+    ; warning
+    @(102.87 mm, 801.37 mm): Symbol TP4 [P_TP4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(102.87 mm, 801.37 mm): Symbol TP4 [P_TP4]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(105.41 mm, 176.53 mm): Symbol R107 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(105.41 mm, 176.53 mm): Symbol R107 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(106.68 mm, 532.13 mm): Symbol C307 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(106.68 mm, 532.13 mm): Symbol C307 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(106.68 mm, 953.77 mm): Symbol C26 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(106.68 mm, 953.77 mm): Symbol C26 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(109.22 mm, 359.41 mm): Symbol U208 [P_U208]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(109.22 mm, 359.41 mm): Symbol U208 [P_U208]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(109.22 mm, 466.09 mm): Symbol U302 [P_U302]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(109.22 mm, 466.09 mm): Symbol U302 [P_U302]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_PinHeader_1.27mm'
+    ; warning
+    @(110.49 mm, 576.58 mm): Symbol J23 [P_J23]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(110.49 mm, 576.58 mm): Symbol J23 [P_J23]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(118.11 mm, 676.91 mm): Symbol U404 [P_U404]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(118.11 mm, 676.91 mm): Symbol U404 [P_U404]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(118.11 mm, 788.67 mm): Symbol R17 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(118.11 mm, 788.67 mm): Symbol R17 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(119.38 mm, 255.27 mm): Symbol R203 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(119.38 mm, 255.27 mm): Symbol R203 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(119.38 mm, 718.82 mm): Symbol U409 [P_U409]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(119.38 mm, 718.82 mm): Symbol U409 [P_U409]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(120.65 mm, 339.09 mm): Symbol C206 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(120.65 mm, 339.09 mm): Symbol C206 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(123.19 mm, 516.89 mm): Symbol U305 [P_U305]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(123.19 mm, 516.89 mm): Symbol U305 [P_U305]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(124.46 mm, 417.83 mm): Symbol C301 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(124.46 mm, 417.83 mm): Symbol C301 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(124.46 mm, 613.41 mm): Symbol R405 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(124.46 mm, 613.41 mm): Symbol R405 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(125.73 mm, 283.21 mm): Symbol R210 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(125.73 mm, 283.21 mm): Symbol R210 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(129.54 mm, 92.71 mm): Symbol R108 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(129.54 mm, 92.71 mm): Symbol R108 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_USB'
+    ; warning
+    @(132.08 mm, 875.03 mm): Symbol J2 [P_J2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(132.08 mm, 875.03 mm): Symbol J2 [P_J2]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(134.62 mm, 148.59 mm): Symbol C104 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(134.62 mm, 148.59 mm): Symbol C104 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(134.62 mm, 486.41 mm): Symbol C303 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(134.62 mm, 486.41 mm): Symbol C303 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(137.16 mm, 194.31 mm): Symbol R119 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(137.16 mm, 194.31 mm): Symbol R119 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(137.16 mm, 532.13 mm): Symbol R317 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(137.16 mm, 532.13 mm): Symbol R317 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Crystal'
+    ; warning
+    @(137.16 mm, 937.26 mm): Symbol Y1 [P_Y1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(137.16 mm, 937.26 mm): Symbol Y1 [P_Y1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(137.16 mm, 953.77 mm): Symbol C27 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(137.16 mm, 953.77 mm): Symbol C27 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(138.43 mm, 697.23 mm): Symbol R407 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(138.43 mm, 697.23 mm): Symbol R407 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(138.43 mm, 775.97 mm): Symbol R13 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(138.43 mm, 775.97 mm): Symbol R13 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(144.78 mm, 641.35 mm): Symbol R412 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(144.78 mm, 641.35 mm): Symbol R412 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'RF_Module'
+    ; warning
+    @(148.59 mm, 826.77 mm): Symbol U1 [P_U1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(148.59 mm, 826.77 mm): Symbol U1 [P_U1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(153.67 mm, 179.07 mm): Symbol U107 [P_U107]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(153.67 mm, 179.07 mm): Symbol U107 [P_U107]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(154.94 mm, 356.87 mm): Symbol C208 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(154.94 mm, 356.87 mm): Symbol C208 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(154.94 mm, 417.83 mm): Symbol C310 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(154.94 mm, 417.83 mm): Symbol C310 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(158.75 mm, 45.72 mm): Symbol U101 [P_U101]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(158.75 mm, 45.72 mm): Symbol U101 [P_U101]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(160.02 mm, 92.71 mm): Symbol R115 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(160.02 mm, 92.71 mm): Symbol R115 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(160.02 mm, 128.27 mm): Symbol U103 [P_U103]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(160.02 mm, 128.27 mm): Symbol U103 [P_U103]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(160.02 mm, 255.27 mm): Symbol R204 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(160.02 mm, 255.27 mm): Symbol R204 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(160.02 mm, 339.09 mm): Symbol R206 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(160.02 mm, 339.09 mm): Symbol R206 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(161.29 mm, 788.67 mm): Symbol R18 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(161.29 mm, 788.67 mm): Symbol R18 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(165.10 mm, 148.59 mm): Symbol R120 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(165.10 mm, 148.59 mm): Symbol R120 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(166.37 mm, 318.77 mm): Symbol U204 [P_U204]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(166.37 mm, 318.77 mm): Symbol U204 [P_U204]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(167.64 mm, 486.41 mm): Symbol R313 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(167.64 mm, 486.41 mm): Symbol R313 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(167.64 mm, 715.01 mm): Symbol R419 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(167.64 mm, 715.01 mm): Symbol R419 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(170.18 mm, 514.35 mm): Symbol C305 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(170.18 mm, 514.35 mm): Symbol C305 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(170.18 mm, 613.41 mm): Symbol R408 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(170.18 mm, 613.41 mm): Symbol R408 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(170.18 mm, 775.97 mm): Symbol R14 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(170.18 mm, 775.97 mm): Symbol R14 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(171.45 mm, 283.21 mm): Symbol R211 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(171.45 mm, 283.21 mm): Symbol R211 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(173.99 mm, 864.87 mm): Symbol R6 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(173.99 mm, 864.87 mm): Symbol R6 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(175.26 mm, 458.47 mm): Symbol C302 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(175.26 mm, 458.47 mm): Symbol C302 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(177.80 mm, 935.99 mm): Symbol C15 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(177.80 mm, 935.99 mm): Symbol C15 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(181.61 mm, 532.13 mm): Symbol R318 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(181.61 mm, 532.13 mm): Symbol R318 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(182.88 mm, 669.29 mm): Symbol C404 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(182.88 mm, 669.29 mm): Symbol C404 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(186.69 mm, 699.77 mm): Symbol U407 [P_U407]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(186.69 mm, 699.77 mm): Symbol U407 [P_U407]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(187.96 mm, 356.87 mm): Symbol C209 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(187.96 mm, 356.87 mm): Symbol C209 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(194.31 mm, 417.83 mm): Symbol R301 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(194.31 mm, 417.83 mm): Symbol R301 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(194.31 mm, 801.37 mm): Symbol C1 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(194.31 mm, 801.37 mm): Symbol C1 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(196.85 mm, 566.42 mm): Symbol U401 [P_U401]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(196.85 mm, 566.42 mm): Symbol U401 [P_U401]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(200.66 mm, 613.41 mm): Symbol R415 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(200.66 mm, 613.41 mm): Symbol R415 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(204.47 mm, 788.67 mm): Symbol R19 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(204.47 mm, 788.67 mm): Symbol R19 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(205.74 mm, 176.53 mm): Symbol C107 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(205.74 mm, 176.53 mm): Symbol C107 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(205.74 mm, 255.27 mm): Symbol R205 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(205.74 mm, 255.27 mm): Symbol R205 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(207.01 mm, 864.87 mm): Symbol R7 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(207.01 mm, 864.87 mm): Symbol R7 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(208.28 mm, 648.97 mm): Symbol U403 [P_U403]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(208.28 mm, 648.97 mm): Symbol U403 [P_U403]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_PinHeader_1.27mm'
+    ; warning
+    @(209.55 mm, 218.44 mm): Symbol J21 [P_J21]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(209.55 mm, 218.44 mm): Symbol J21 [P_J21]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_JST'
+    ; warning
+    @(209.55 mm, 717.55 mm): Symbol J3 [P_J3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(209.55 mm, 717.55 mm): Symbol J3 [P_J3]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(210.82 mm, 775.97 mm): Symbol R15 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(210.82 mm, 775.97 mm): Symbol R15 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(210.82 mm, 935.99 mm): Symbol C16 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(210.82 mm, 935.99 mm): Symbol C16 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(213.36 mm, 486.41 mm): Symbol R314 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(213.36 mm, 486.41 mm): Symbol R314 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(213.36 mm, 669.29 mm): Symbol R420 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(213.36 mm, 669.29 mm): Symbol R420 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(215.90 mm, 283.21 mm): Symbol R212 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(215.90 mm, 283.21 mm): Symbol R212 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(215.90 mm, 458.47 mm): Symbol R309 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(215.90 mm, 458.47 mm): Symbol R309 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(219.71 mm, 151.13 mm): Symbol U105 [P_U105]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(219.71 mm, 151.13 mm): Symbol U105 [P_U105]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(219.71 mm, 339.09 mm): Symbol R207 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(219.71 mm, 339.09 mm): Symbol R207 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(220.98 mm, 31.75 mm): Symbol C101 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(220.98 mm, 31.75 mm): Symbol C101 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(223.52 mm, 120.65 mm): Symbol C103 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(223.52 mm, 120.65 mm): Symbol C103 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(226.06 mm, 801.37 mm): Symbol C2 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(226.06 mm, 801.37 mm): Symbol C2 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(228.60 mm, 516.89 mm): Symbol U306 [P_U306]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(228.60 mm, 516.89 mm): Symbol U306 [P_U306]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(231.14 mm, 100.33 mm): Symbol U102 [P_U102]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(231.14 mm, 100.33 mm): Symbol U102 [P_U102]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(231.14 mm, 311.15 mm): Symbol C204 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(231.14 mm, 311.15 mm): Symbol C204 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(234.95 mm, 417.83 mm): Symbol R302 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(234.95 mm, 417.83 mm): Symbol R302 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(236.22 mm, 176.53 mm): Symbol R117 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(236.22 mm, 176.53 mm): Symbol R117 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(236.22 mm, 360.68 mm): Symbol U209 [P_U209]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(236.22 mm, 360.68 mm): Symbol U209 [P_U209]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(238.76 mm, 697.23 mm): Symbol C407 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(238.76 mm, 697.23 mm): Symbol C407 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(243.84 mm, 938.53 mm): Symbol U5 [P_U5]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(243.84 mm, 938.53 mm): Symbol U5 [P_U5]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(245.11 mm, 788.67 mm): Symbol D1 [P_D1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(245.11 mm, 788.67 mm): Symbol D1 [P_D1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(246.38 mm, 534.67 mm): Symbol U308 [P_U308]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(246.38 mm, 534.67 mm): Symbol U308 [P_U308]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(248.92 mm, 867.41 mm): Symbol U4 [P_U4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(248.92 mm, 867.41 mm): Symbol U4 [P_U4]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(251.46 mm, 31.75 mm): Symbol C110 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(251.46 mm, 31.75 mm): Symbol C110 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(251.46 mm, 255.27 mm): Symbol R208 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(251.46 mm, 255.27 mm): Symbol R208 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(254.00 mm, 775.97 mm): Symbol C22 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(254.00 mm, 775.97 mm): Symbol C22 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(256.54 mm, 120.65 mm): Symbol R113 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(256.54 mm, 120.65 mm): Symbol R113 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(256.54 mm, 801.37 mm): Symbol C3 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(256.54 mm, 801.37 mm): Symbol C3 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(259.08 mm, 552.45 mm): Symbol C401 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(259.08 mm, 552.45 mm): Symbol C401 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(261.62 mm, 311.15 mm): Symbol R220 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(261.62 mm, 311.15 mm): Symbol R220 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(261.62 mm, 486.41 mm): Symbol R316 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(261.62 mm, 486.41 mm): Symbol R316 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(262.89 mm, 458.47 mm): Symbol R310 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(262.89 mm, 458.47 mm): Symbol R310 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_PinHeader_1.27mm'
+    ; warning
+    @(264.16 mm, 739.14 mm): Symbol J4 [P_J4]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(264.16 mm, 739.14 mm): Symbol J4 [P_J4]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(266.70 mm, 148.59 mm): Symbol C105 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(266.70 mm, 148.59 mm): Symbol C105 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(266.70 mm, 417.83 mm): Symbol R303 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(266.70 mm, 417.83 mm): Symbol R303 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(267.97 mm, 341.63 mm): Symbol U207 [P_U207]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(267.97 mm, 341.63 mm): Symbol U207 [P_U207]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(267.97 mm, 671.83 mm): Symbol U405 [P_U405]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(267.97 mm, 671.83 mm): Symbol U405 [P_U405]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(269.24 mm, 697.23 mm): Symbol R417 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(269.24 mm, 697.23 mm): Symbol R417 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(271.78 mm, 621.03 mm): Symbol U402 [P_U402]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(271.78 mm, 621.03 mm): Symbol U402 [P_U402]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(271.78 mm, 641.35 mm): Symbol C403 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(271.78 mm, 641.35 mm): Symbol C403 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(276.86 mm, 935.99 mm): Symbol C17 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(276.86 mm, 935.99 mm): Symbol C17 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(279.40 mm, 290.83 mm): Symbol U203 [P_U203]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(279.40 mm, 290.83 mm): Symbol U203 [P_U203]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(280.67 mm, 176.53 mm): Symbol R118 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(280.67 mm, 176.53 mm): Symbol R118 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(281.94 mm, 255.27 mm): Symbol R215 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(281.94 mm, 255.27 mm): Symbol R215 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(283.21 mm, 514.35 mm): Symbol C306 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(283.21 mm, 514.35 mm): Symbol C306 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(284.48 mm, 356.87 mm): Symbol R219 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(284.48 mm, 356.87 mm): Symbol R219 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(284.48 mm, 788.67 mm): Symbol R3 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(284.48 mm, 788.67 mm): Symbol R3 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(287.02 mm, 801.37 mm): Symbol R1 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(287.02 mm, 801.37 mm): Symbol R1 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(289.56 mm, 552.45 mm): Symbol C410 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(289.56 mm, 552.45 mm): Symbol C410 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(289.56 mm, 775.97 mm): Symbol C23 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(289.56 mm, 775.97 mm): Symbol C23 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(290.83 mm, 31.75 mm): Symbol R101 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(290.83 mm, 31.75 mm): Symbol R101 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(292.10 mm, 532.13 mm): Symbol C308 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(292.10 mm, 532.13 mm): Symbol C308 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(295.91 mm, 208.28 mm): Symbol U201 [P_U201]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(295.91 mm, 208.28 mm): Symbol U201 [P_U201]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(297.18 mm, 92.71 mm): Symbol C102 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(297.18 mm, 92.71 mm): Symbol C102 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(302.26 mm, 120.65 mm): Symbol R114 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(302.26 mm, 120.65 mm): Symbol R114 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(304.80 mm, 641.35 mm): Symbol R413 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(304.80 mm, 641.35 mm): Symbol R413 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_QFP'
+    ; warning
+    @(306.07 mm, 894.08 mm): Symbol U2 [P_U2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(306.07 mm, 894.08 mm): Symbol U2 [P_U2]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(307.34 mm, 417.83 mm): Symbol R304 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(307.34 mm, 417.83 mm): Symbol R304 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(307.34 mm, 935.99 mm): Symbol C18 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(307.34 mm, 935.99 mm): Symbol C18 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(308.61 mm, 458.47 mm): Symbol R311 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(308.61 mm, 458.47 mm): Symbol R311 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(313.69 mm, 697.23 mm): Symbol R418 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(313.69 mm, 697.23 mm): Symbol R418 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(314.96 mm, 669.29 mm): Symbol C405 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(314.96 mm, 669.29 mm): Symbol C405 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(316.23 mm, 313.69 mm): Symbol U205 [P_U205]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(316.23 mm, 313.69 mm): Symbol U205 [P_U205]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(317.50 mm, 801.37 mm): Symbol R2 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(317.50 mm, 801.37 mm): Symbol R2 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Button_Switch_SMD'
+    ; warning
+    @(318.77 mm, 788.67 mm): Symbol SW1 [P_SW1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(318.77 mm, 788.67 mm): Symbol SW1 [P_SW1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(320.04 mm, 339.09 mm): Symbol C207 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(320.04 mm, 339.09 mm): Symbol C207 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(322.58 mm, 514.35 mm): Symbol R306 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(322.58 mm, 514.35 mm): Symbol R306 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(325.12 mm, 151.13 mm): Symbol U106 [P_U106]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(325.12 mm, 151.13 mm): Symbol U106 [P_U106]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(325.12 mm, 532.13 mm): Symbol C309 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(325.12 mm, 532.13 mm): Symbol C309 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(325.12 mm, 775.97 mm): Symbol C24 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(325.12 mm, 775.97 mm): Symbol C24 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(328.93 mm, 552.45 mm): Symbol R401 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(328.93 mm, 552.45 mm): Symbol R401 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(331.47 mm, 31.75 mm): Symbol R102 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(331.47 mm, 31.75 mm): Symbol R102 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(337.82 mm, 92.71 mm): Symbol R109 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(337.82 mm, 92.71 mm): Symbol R109 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(337.82 mm, 613.41 mm): Symbol C402 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(337.82 mm, 613.41 mm): Symbol C402 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(339.09 mm, 494.03 mm): Symbol U304 [P_U304]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(339.09 mm, 494.03 mm): Symbol U304 [P_U304]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(339.09 mm, 728.98 mm): Symbol U7 [P_U7]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(339.09 mm, 728.98 mm): Symbol U7 [P_U7]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(342.90 mm, 283.21 mm): Symbol C203 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(342.90 mm, 283.21 mm): Symbol C203 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(345.44 mm, 179.07 mm): Symbol U108 [P_U108]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(345.44 mm, 179.07 mm): Symbol U108 [P_U108]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(345.44 mm, 938.53 mm): Symbol U6 [P_U6]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(345.44 mm, 938.53 mm): Symbol U6 [P_U6]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(350.52 mm, 120.65 mm): Symbol R116 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(350.52 mm, 120.65 mm): Symbol R116 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(350.52 mm, 339.09 mm): Symbol R217 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(350.52 mm, 339.09 mm): Symbol R217 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(350.52 mm, 641.35 mm): Symbol R414 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(350.52 mm, 641.35 mm): Symbol R414 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(353.06 mm, 262.89 mm): Symbol U202 [P_U202]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(353.06 mm, 262.89 mm): Symbol U202 [P_U202]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(353.06 mm, 417.83 mm): Symbol R305 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(353.06 mm, 417.83 mm): Symbol R305 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(353.06 mm, 458.47 mm): Symbol R312 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(353.06 mm, 458.47 mm): Symbol R312 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Button_Switch_SMD'
+    ; warning
+    @(355.60 mm, 788.67 mm): Symbol SW2 [P_SW2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(355.60 mm, 788.67 mm): Symbol SW2 [P_SW2]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(355.60 mm, 864.87 mm): Symbol C10 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(355.60 mm, 864.87 mm): Symbol C10 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_PinHeader_1.27mm'
+    ; warning
+    @(356.87 mm, 381.00 mm): Symbol J22 [P_J22]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(356.87 mm, 381.00 mm): Symbol J22 [P_J22]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(358.14 mm, 194.31 mm): Symbol C201 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(358.14 mm, 194.31 mm): Symbol C201 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_USB'
+    ; warning
+    @(358.14 mm, 811.53 mm): Symbol J1 [P_J1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(358.14 mm, 811.53 mm): Symbol J1 [P_J1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(360.68 mm, 775.97 mm): Symbol C25 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(360.68 mm, 775.97 mm): Symbol C25 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(363.22 mm, 31.75 mm): Symbol R103 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(363.22 mm, 31.75 mm): Symbol R103 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(363.22 mm, 311.15 mm): Symbol C205 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(363.22 mm, 311.15 mm): Symbol C205 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(369.57 mm, 552.45 mm): Symbol R402 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(369.57 mm, 552.45 mm): Symbol R402 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_SO'
+    ; warning
+    @(373.38 mm, 535.94 mm): Symbol U309 [P_U309]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(373.38 mm, 535.94 mm): Symbol U309 [P_U309]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(373.38 mm, 671.83 mm): Symbol U406 [P_U406]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(373.38 mm, 671.83 mm): Symbol U406 [P_U406]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(375.92 mm, 283.21 mm): Symbol R213 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(375.92 mm, 283.21 mm): Symbol R213 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(378.46 mm, 613.41 mm): Symbol R409 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(378.46 mm, 613.41 mm): Symbol R409 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_TO_SOT_SMD'
+    ; warning
+    @(378.46 mm, 699.77 mm): Symbol U408 [P_U408]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(378.46 mm, 699.77 mm): Symbol U408 [P_U408]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(379.73 mm, 148.59 mm): Symbol C106 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(379.73 mm, 148.59 mm): Symbol C106 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(382.27 mm, 514.35 mm): Symbol R307 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(382.27 mm, 514.35 mm): Symbol R307 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(384.81 mm, 92.71 mm): Symbol R110 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(384.81 mm, 92.71 mm): Symbol R110 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(386.08 mm, 864.87 mm): Symbol C11 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(386.08 mm, 864.87 mm): Symbol C11 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(388.62 mm, 194.31 mm): Symbol C210 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(388.62 mm, 194.31 mm): Symbol C210 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(388.62 mm, 935.99 mm): Symbol C19 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(388.62 mm, 935.99 mm): Symbol C19 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'TestPoint'
+    ; warning
+    @(389.89 mm, 788.67 mm): Symbol TP1 [P_TP1]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(389.89 mm, 788.67 mm): Symbol TP1 [P_TP1]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(391.16 mm, 176.53 mm): Symbol C108 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(391.16 mm, 176.53 mm): Symbol C108 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(391.16 mm, 775.97 mm): Symbol R10 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(391.16 mm, 775.97 mm): Symbol R10 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(393.70 mm, 715.01 mm): Symbol C21 [C]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(393.70 mm, 715.01 mm): Symbol C21 [C]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(398.78 mm, 417.83 mm): Symbol R308 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(398.78 mm, 417.83 mm): Symbol R308 [R]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    ; warning
+    @(400.05 mm, 801.37 mm): Symbol R4 [R]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'mgmt'
+    ; warning
+    @(400.05 mm, 801.37 mm): Symbol R4 [R]
+
+ ** ERC messages: 440  Errors 0  Warnings 440
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters
