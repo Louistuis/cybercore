@@ -8,11 +8,11 @@ A slim, black, console-sized box that runs **DeepSeek V3.1 (671B)** locally, on 
 ## What's on the board
 | Block | What | Status |
 |---|---|---|
-| Compute | 4 × Jetson T5000 module (87 × 100 mm), 699-pin Molex Mirror Mezz, 2.5 mm connector = **5 mm** between board and module | Pin map **real** (NVIDIA). Outline, connector position, row layout and standoffs **measured** from NVIDIA's drawings |
+| Compute | 4 × Jetson T5000 module (87 × 100 mm), 699-pin Molex Mirror Mezz 203456-0003, 2.5 mm connector = **5 mm** between board and module | Pin map **real** (NVIDIA). Contact grid **real** (Molex drawing 2034560003). Outline, connector position and standoffs **measured** from NVIDIA's drawings |
 | Memory | 4 × 128 GB LPDDR5X = 512 GB (273 GB/s per module, per NVIDIA's spec) | On the modules |
 | Module-to-module | Full mesh: each module's MGBE C0-C2 (UPHY lanes 12-14) wired straight to the 3 others, 6 links, AC caps on the back | Nets real, not routed |
 | Network clock | One 156.25 MHz HCSL oscillator per module (SCTF SX5DF156.250B20F30HNN) into UPHY_REFCLK2, terminated as in DG-12084 fig. 7-12 (33.2 Ω series, 49.9 Ω to GND) | **Real**: pinout and land pattern from SCTF's 5Z spec sheet, which asks for the same 33 Ω / 50 Ω load |
-| Uplink | Each module's MGBE C3 → one lane of a QSFP28 cage (4 × 25G breakout = one port per module). TE 2170704 press-fit cage + 38-pin SFF-8679 connector, cage end at the rear edge | **Real** layout from TE's customer drawing 2170704 rev G8 (holes, datums, keep-outs). Contact pad size still to confirm |
+| Uplink | Each module's MGBE C3 → one lane of a QSFP28 cage (4 × 25G breakout = one port per module). TE 2170704 press-fit cage + 38-pin connector, cage end at the rear edge | **Real**: cage layout from TE's drawing 2170704 rev G8, contact pads from SFF-8662 table 6-3 |
 | Storage | 1 × M.2 2280 NVMe per module on the back (PCIe C5 x4, UPHY lanes 8-11), each holding its share of the model | Nets real, stock footprint |
 | Power | 12 V in through 2 × EPS-style Mini-Fit Jr 8-pin (~600 W). See the power section | Real TI parts and land patterns |
 | Management | Per module: 2×20 1.27 mm header (sequencing, reset, recovery, thermal, debug UART, I2C, eFuse enables). One system header: buck enable, PMBus, power-good, current monitors, QSFP sideband | Real connectors. The BMC board that plugs in is not designed yet |
@@ -27,10 +27,10 @@ Everything that belongs to a module (eFuses, load switch, clock, AC caps, M.2 dr
 ## Power
 | Rail | Part | Setting |
 |---|---|---|
-| 12 V → 5 V, 20 A | TI **TPS546B24A** (LQFN-CLIP-40, LCSC C3189423) + Coilcraft XAL7070 1 µH, 6 × 47 µF out | Pin straps: 5.0 V, 550 kHz, 3 ms soft start, PMBus 0x10. Enabled by management |
+| 12 V → 5 V, 20 A | TI **TPS546B24A** (LQFN-CLIP-40, LCSC C3189423) + Coilcraft XAL7070 1 µH, 6 × 47 µF out | Pin straps: 5.0 V, 550 kHz, 3 ms soft start, compensation config 23 (TI's procedure), PMBus 0x10. Enabled by management |
 | 12 V → 3.3 V, 20 A | TI **TPS546B24A**, same power stage | Pin straps: 3.32 V, PMBus 0x11. Always on (standby rail), starts at ~8.4 V in |
 | Module SYS_VIN_HV (12 V) | TI **TPS25982** eFuse per module (VQFN-24, LCSC C2155761) | 13.4 A limit (T5000 ≈ 130 W ≈ 11 A), latch-off on fault, current monitor to the system header |
-| Module SYS_VIN_MV (5 V) | TI **TPS25982** per module | 8.1 A limit (**assumed**, NVIDIA gives no MV current) |
+| Module SYS_VIN_MV (5 V) | TI **TPS25982** per module | 6.5 A limit, just above NVIDIA's 6 A absolute maximum (DS-11945 table 6-2) |
 | Module SYS_VIN_SV (3.3 V) | TI **TPS22918** load switch per module (SOT-23-6, LCSC C131941) | Quick output discharge on, so SV falls after HV and MV |
 
 Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040A, RGE0024M). The strap resistor values come from the TPS546B24A datasheet tables.
@@ -52,20 +52,23 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 **Real now:**
 - Board outline and the 12-layer black stackup
 - Every connection the board makes to each module's 699 pins, taken from NVIDIA's pin description spreadsheet: power, GND, PCIe, MGBE, MGBE clock, USB, management
-- Module outline, connector position, row layout and the 4 standoff holes, measured from NVIDIA's drawings
+- Module outline, connector position and the 4 standoff holes, measured from NVIDIA's drawings
 - Power: TI bucks, eFuses and load switches with their real land patterns and set-up resistors
 - MGBE clock: SCTF oscillator with the maker's pinout and land pattern (pin 1 = enable, high or open runs it)
-- QSFP28: TE 2170704 cage and connector layout from TE's drawing (sheet 15): the 2 connector alignment holes, 12 press-fit cage holes, contact positions and pitch, and the cage keep-out, which DRC enforces
+- QSFP28: TE 2170704 cage layout (sheet 15) with SFF-8662 contact pads: 2 alignment holes, 12 press-fit cage holes, 38 contacts and the cage keep-out, which DRC enforces
+- Mirror Mezz contact grid from Molex's drawing
 - Stock connectors (M.2, USB-C, Mini-Fit Jr, fan headers, management headers)
 - DRC: 0 violations (with 499 unrouted connections, because nothing is routed yet)
 
-**Still to confirm before ordering:**
-1. **Mirror Mezz pad size and pitch.** Measured from NVIDIA's drawings: 0.96 mm column pitch, 1.50 mm row pitch, alternate rows offset by half a pitch, ±0.05-0.5 mm. Molex's 1.30 mm "pitch" listing doesn't fit the 64.7 mm body, so that number was dropped.
-   - Confirm against Molex's 203456 drawing and NVIDIA's reference layout. Which rows carry the half-pitch offset is also measured, not documented.
-2. **QSFP28 contact pad size.** Everything else in the footprint is dimensioned on TE's drawing 2170704 rev G8. The 38 contact pads are drawn there but not dimensioned, so their 0.35 × 1.80 mm size is the drawn outline (positions and the 0.80 mm pitch come from the drawing's geometry). Check it against SFF-8679's host pad table, and the press-fit hole plating against TE application spec 114-32023.
-3. **Buck compensation.** Compensation setting 19 is a starting point; check it in TI's design tool for the 1 µH + 282 µF filter.
-4. **MV current limit.** 8.1 A is an assumption until NVIDIA's power numbers for SYS_VIN_MV are known.
-5. **MV_LSW_MON (pin L42).** NVIDIA's documents don't describe it, so it is left unconnected.
+**Confirmed from the makers' own documents:**
+- Mirror Mezz contact grid: Molex drawing 2034560003 sheet 2. 699 round 0.50 mm pads (0.60 mm mask opening), rows 1.50 mm apart, 0.90 mm pitch with a 1.30 mm gap between pair groups, alternate rows shifted 0.20 mm. This replaced the uniform 0.96 mm grid measured from NVIDIA's pictures, which was off by up to 0.4 mm.
+- QSFP28 contact pads: 0.35 × 1.80 mm, SFF-8662 rev 2.9 table 6-3, which also matches every position measured from TE's drawing.
+- 5 V module current: NVIDIA DS-11945 v1.4 table 6-2 gives 6 A absolute maximum, so the eFuse limit is now 6.5 A (226 Ω).
+
+**Still to check:**
+1. **Buck compensation (bench).** Config 23 (current-loop gain 6, voltage-loop gain 2) follows TI's procedure in the TPS546B24A datasheet (section 8.2.2.10). It is a stable starting point; measure gain and phase margin on the first board, then raise the gains over PMBus.
+2. **MV_LSW_MON (pin L42).** NVIDIA's pin spreadsheet names it but no document describes it, so it is left unconnected. Ask NVIDIA before ordering.
+3. **Module position (±0.5 mm).** The connector's place on the module and the standoff holes are still measured from NVIDIA's drawings. NVIDIA's reference carrier design files would pin these down exactly.
 
 **Open questions:**
 - **The direct MGBE-to-MGBE mesh.** XFI is meant to drive an SFP+ module. A short PCB link acts like a passive copper cable, but it must be checked against design guide section 7.3.
@@ -83,4 +86,4 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 make_console.py
 kicad-cli pcb drc -o drc.rpt console.kicad_pcb
 ```
-NVIDIA's documents and the pin spreadsheet are **not** in this repo; the script reads them from your own download. The TI datasheets used for the power stage are free on ti.com (TPS546B24A, TPS25982, TPS22918). The QSFP28 layout comes from TE's customer drawing 2170704, free on te.com.
+NVIDIA's documents and the pin spreadsheet are **not** in this repo; the script reads them from your own download. The TI datasheets used for the power stage are free on ti.com (TPS546B24A, TPS25982, TPS22918). The QSFP28 layout comes from TE's customer drawing 2170704 (te.com) and SFF-8662 (snia.org); the connector grid from Molex drawing 2034560003 (molex.com).

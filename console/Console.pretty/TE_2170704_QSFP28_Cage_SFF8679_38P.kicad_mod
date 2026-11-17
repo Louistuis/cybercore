@@ -1,5 +1,5 @@
 (footprint "TE_2170704_QSFP28_Cage_SFF8679_38P" (version 20240108) (generator "make_console") (layer "F.Cu")
-  (descr "TE 2170704 QSFP28 press-fit cage + 38-pin SFF-8679 host connector, layout from TE customer drawing 2170704 rev G8 sheet 15 (single-sided, 2 rear legs). Contact pad size is the drawn outline, confirm against SFF-8679") (attr smd)
+  (descr "TE 2170704 QSFP28 press-fit cage + 38-pin SFF-8679 host connector, layout from TE customer drawing 2170704 rev G8 sheet 15 (single-sided, 2 rear legs), contact pads per SFF-8662 table 6-3") (attr smd)
   (property "Reference" "REF**" (at 0.00 -15.12 0) (layer "F.SilkS") (effects (font (size 1 1) (thickness 0.15))))
   (property "Value" "TE_2170704_QSFP28_Cage_SFF8679_38P" (at 0.00 38.63 0) (layer "F.Fab") (effects (font (size 1 1) (thickness 0.15))))
   (fp_poly (pts (xy -11.075 -13.490) (xy 11.075 -13.490) (xy 11.075 37.000) (xy -11.075 37.000)) (stroke (width 0.15) (type solid)) (fill none) (layer "F.Fab"))

@@ -9,15 +9,16 @@ extract the attachment (`pdfdetach -saveall`), or point the script at it.
 
 Real in rev 0.2:
   - every module pin and the net it lands on (NVIDIA spreadsheet + design guide ch. 5 / 7)
-  - module outline 87 x 100 mm, connector position, 4 standoff holes, connector body 64.70 x 22.00 mm, 11 staggered rows:
+  - Mirror Mezz contact grid (699 x 0.50 mm pads) from Molex's drawing 2034560003 sheet 2
+  - module outline 87 x 100 mm, connector position, 4 standoff holes:
     MEASURED from NVIDIA's drawings (DG-12084 fig. 3-1, SP-12533 fig. 5-1), about +-0.05 to 0.5 mm
   - power: TI TPS546B24A bucks (12 V -> 5 V and 3.3 V, 20 A each, strap resistors from the datasheet tables),
     TI TPS25982 eFuses per module (12 V HV and 5 V MV), TI TPS22918 per module (3.3 V SV); land patterns from TI's drawings
   - MGBE reference clock: 156.25 MHz HCSL oscillator per module (SCTF pinout + land pattern), terminated as in DG-12084 fig. 7-12
-  - QSFP28: TE 2170704 cage + SFF-8679 connector layout from TE's customer drawing 2170704 rev G8, sheet 15
-Still placeholder or unverified (see README.md): the exact Mirror Mezz pad size / pitch (no Molex 203456 drawing),
-the QSFP28 contact pad size (drawn, not dimensioned, on TE's sheet), buck compensation and
-the 5 V MV current limit. Nothing is routed."""
+  - QSFP28: TE 2170704 cage layout from TE's drawing 2170704 rev G8 sheet 15; contact pads per SFF-8662 table 6-3
+  - 5 V module eFuse limit 6.5 A, just above NVIDIA's 6 A absolute maximum for SYS_VIN_MV (DS-11945 table 6-2)
+Still unverified (see README.md): MV_LSW_MON (pin L42) is named but not described anywhere in NVIDIA's documents,
+so it is left open; the buck compensation is TI's calculated starting point and needs a bench check. Nothing is routed."""
 import os, sys, re, glob, math, zipfile, xml.etree.ElementTree as ET, pcbnew
 from pcbnew import FromMM, VECTOR2I, EDA_ANGLE, DEGREES_T
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -78,25 +79,31 @@ def smd(num, x, y, w, h, shape="roundrect", paste=True):
     rr = " (roundrect_rratio 0.25)" if shape == "roundrect" else ""
     return f'  (pad "{num}" smd {shape} (at {x:.4f} {y:.4f}) (size {w:.3f} {h:.3f}) (layers {lay}){rr})'
 
-# 1) Jetson T5000 module, carrier side: 87 x 100 mm outline, 699-pin Molex Mirror Mezz, 4 standoff holes.
-#    Footprint origin = module centre (= centre of the 4 holes). All numbers measured from NVIDIA's drawings:
-#      DG-12084 fig. 3-1: connector body 64.70 x 22.00 mm, 11 rows, alternate rows offset by half a column pitch,
-#                         contacts are rectangles longer across the row than along it.
-#      SP-12533 fig. 5-1 (carrier top view, scaled at ~13.77 px/mm): rows run along the 87 mm side; 11 rows over 15.1 mm
-#                         = 1.50 mm row pitch; a full 65-pin row spans 61.9 mm = 0.96 mm column pitch; connector centre
-#                         2.0 mm right of and 24.0 mm above the module centre; holes 80.7 x 93.4 mm apart.
-#    Carrier pin orientation per DG-12084 fig. 3-2 (mirror of the module view): row L at the top, row A at the bottom,
-#    column 1 on the left. Rows A, B, K, L use columns 3-63, rows C-J use 1-65 (699 pins).
+# 1) Jetson T5000 module, carrier side: 87 x 100 mm outline, 699-pin Molex Mirror Mezz 203456-0003, 4 standoff holes.
+#    Footprint origin = module centre (= centre of the 4 holes).
+#    Contact grid from Molex's own drawing 2034560003 sheet 2 ("Recommended PCB layout", rev A7):
+#      699 round pads 0.50 +-0.05 mm, solder mask aperture 0.60 mm (non-solder-mask defined), ball-grid part.
+#      11 rows 1.50 mm apart. Along a row the pitch is 0.90 mm, with a 1.30 mm gap between pair groups.
+#      Rows A, C, E, G, J, L: wide gaps before columns 13, 17, ... 37. Rows B, D, F, H, K: shifted 0.20 mm right,
+#      wide gaps before columns 15, 19, ... 39. Rows A, B, K, L use columns 3-63, rows C-J use 1-65.
+#      Checked against the drawing's dimensions (0.90, 1.30, 0.20, 1.50, 56.80 and 60.4 spans).
+#    Module outline, connector position and holes: measured from NVIDIA's drawings (DG-12084 fig. 3-1, SP-12533
+#    fig. 5-1): connector centre 2.0 mm right of and 24.0 mm above the module centre; holes 80.7 x 93.4 mm apart.
+#    Pin names are NVIDIA's (module side). Mirror Mezz is hermaphroditic and pins mate A<->L, B<->K, so on the carrier
+#    NVIDIA row L sits in the connector's row-A position (top) and row A at the bottom; columns keep their numbers.
 #    With the 2.5 mm connector (5 mm stack) the design guide allows NO parts under the module on this side, so the
 #    whole outline is a top-side keepout (rule area below); everything that belongs under a module is on the back.
-CP, RP, CONN = 0.96, 1.50, (2.0, -24.0)
+RP, CONN = 1.50, (2.0, -24.0)
 HOLES = [(sx * 40.35, sy * 46.7) for sx in (-1, 1) for sy in (-1, 1)]
+def mm_x(col, odd):
+    wide = range(15, 40, 4) if odd else range(13, 38, 4)
+    return (col - 1) * 0.90 + 0.40 * sum(1 for w in wide if w <= col) + (0.20 if odd else 0.0) - 30.30
 pads = []
 for pin in PINS:
     r, c = pin[0], int(pin[1:]); ri = ROWS.index(r)
-    x = CONN[0] + (c - 33) * CP + (CP / 4 if ri % 2 else -CP / 4)      # stagger: odd rows half a pitch right of even rows
+    x = CONN[0] + mm_x(c, ri % 2 == 1)
     y = CONN[1] + (ri - 5) * -RP
-    pads.append(smd(pin, x, y, 0.45, 0.90))
+    pads.append(f'  (pad "{pin}" smd circle (at {x:.4f} {y:.4f}) (size 0.50 0.50) (layers "F.Cu" "F.Paste" "F.Mask") (solder_mask_margin 0.05))')
 for hx, hy in HOLES:
     pads.append(f'  (pad "MH" thru_hole circle (at {hx:.2f} {hy:.2f}) (size 5.0 5.0) (drill 2.7) (layers "*.Cu" "*.Mask"))')
 # top-side "no parts" area over the whole module: a rule area inside the footprint (KiCad does not apply it to its own
@@ -108,7 +115,7 @@ KEEPOUT = ('  (zone (net 0) (net_name "") (layers "F.Cu") (name "no parts under 
            ' (polygon (pts (xy -43.5 -50) (xy 43.5 -50) (xy 43.5 50) (xy -43.5 50))))')
 body = [rect("F.Fab", 87.0, 100.0, width=0.15), rect("F.Fab", 64.70, 22.00, *CONN),
         rect("F.SilkS", 64.9, 22.2, *CONN, width=0.12), rect("F.SilkS", 87.3, 100.3, width=0.12),
-        ftext("Jetson T5000 module 87 x 100 (measured from NVIDIA drawings)", 0, 40.0),
+        ftext("Jetson T5000 module 87 x 100, Molex 203456 grid", 0, 40.0),
         ftext("L1", CONN[0] - 34.4, CONN[1] - 7.5, "F.SilkS", 0.8),
         ftext("A1", CONN[0] - 34.4, CONN[1] + 7.5, "F.SilkS", 0.8)]
 write_fp("Jetson_T5000_Module_MirrorMezz699_Carrier",
@@ -162,8 +169,9 @@ write_fp("TI_RVF0040A_LQFN-CLIP-40_5x7mm_P0.5mm_EP3.3x5.3mm",
 #      the rest of the cage area: no parts and no traces (chassis ground excepted)
 #    Contacts (SFF-8679 numbering), 0.80 mm pitch: pins 1-19 along the bezel-side row (y 7.37, x 1.40 .. 15.80 left to
 #    right), pins 20-38 along the rear row (y 9.88, x 15.40 .. 1.00 right to left), half a pitch offset.
-#    The contact pads are drawn but not dimensioned on the sheet: 0.35 x 1.80 mm is their drawn outline. Check against
-#    SFF-8679's host pad table before ordering. Board must be at least 1.57 mm thick (note 6); ours is 1.6 mm.
+#    Contact pads 0.35 +-0.03 x 1.80 +-0.03 mm: SFF-8662 rev 2.9 table 6-3 (C08, C09), which also confirms the 16.80
+#    hole spacing (C01), row A at 7.37 (C02) and 2.51 between rows (C03). Board must be at least 1.57 mm thick
+#    (TE note 6); ours is 1.6 mm.
 #    Footprint origin = midway between L and K. KiCad y points to the bezel, so y_kicad = -y_drawing.
 QX = 8.40
 qd = lambda x, y: (x - QX, -y)
@@ -194,7 +202,7 @@ fab = lambda pts, layer, w: f'  (fp_poly (pts {poly(pts)}) (stroke (width {w}) (
 SILK = [(-2.8, 13.62), (19.6, 13.62), (19.6, -36.6), (-2.8, -36.6)]   # stops short of the board edge
 write_fp("TE_2170704_QSFP28_Cage_SFF8679_38P",
          "TE 2170704 QSFP28 press-fit cage + 38-pin SFF-8679 host connector, layout from TE customer drawing 2170704 rev G8 "
-         "sheet 15 (single-sided, 2 rear legs). Contact pad size is the drawn outline, confirm against SFF-8679",
+         "sheet 15 (single-sided, 2 rear legs), contact pads per SFF-8662 table 6-3",
          [fab(CAGE, "F.Fab", 0.15), fab(BODY, "F.Fab", 0.1), fab(SILK, "F.SilkS", 0.12),
           dot(*qd(1.40, 5.9)), ftext("QSFP28 cage (TE 2170704), bezel this end", 0, 30), CAGE_KEEPOUT],
          q, (22.4, 50.75), attr="smd", crt_xy=(0, 11.755))
@@ -345,9 +353,10 @@ for m, (cx, cy) in enumerate(MOD):
         R(f"R{rb+3}", "10k", "3V3", pg, x + 1.2, y + 4, back=True)          # PG is open drain
     efuse(f"U{B+1}", cx + 10, cy + 12, "VIN_12V", f"M{m}_VIN_HV", f"M{m}_HV_EN", f"M{m}_HV_PG", f"M{m}_HV_IMON",
           "110", "470", "10nF", B + 1, B + 1)
-    # MV: the same eFuse on 5 V. NVIDIA gives no SYS_VIN_MV current, so the limit is an assumption: 182 R = 8.1 A.
+    # MV: the same eFuse on 5 V. NVIDIA DS-11945 v1.4 table 6-2: SYS_VIN_MV absolute maximum 6 A @ 5 V,
+    # so 226 R = 1470 / 226 = 6.5 A (TI: +-8 %), just above the module's own maximum.
     efuse(f"U{B+2}", cx + 28, cy + 12, "5V", f"M{m}_VIN_MV", f"M{m}_MV_EN", f"M{m}_MV_PG", f"M{m}_MV_IMON",
-          "182", "1k", "3.3nF", B + 11, B + 11)
+          "226", "1k", "3.3nF", B + 11, B + 11)
     # SV (3.3 V safety-logic rail, L53): TPS22918DBVR (LCSC C131941) load switch. 1 VIN, 2 GND, 3 ON, 4 CT, 5 QOD, 6 VOUT.
     # QOD tied to VOUT = quick output discharge through the internal resistor (SV must fall after HV and MV).
     add("Package_TO_SOT_SMD", "SOT-23-6", f"U{B+3}", cx + 10, cy + 28, 0, "TPS22918DBVR (C131941)",
@@ -375,7 +384,7 @@ for j, x in (("J1", 16.0), ("J5", 40.0)):
         {**{str(i): "GND" for i in range(1, 5)}, **{str(i): "VIN_12V" for i in range(5, 9)}})
 
 # Two TI TPS546B24ARVFR (LCSC C3189423) 20 A PMBus bucks from 12 V. Pin straps (TI datasheet tables 7-x, Rtop to BP1V5,
-# Rbot to AGND, 1 %): VSEL sets Vout, MSEL1 = 550 kHz + compensation 19, MSEL2 = 3 ms soft start + stand-alone + 20/26 A
+# Rbot to AGND, 1 %): VSEL sets Vout, MSEL1 = 550 kHz + compensation config 23 (see below), MSEL2 = 3 ms soft start + stand-alone + 20/26 A
 # OC, ADRSEL = PMBus address. The compensation choice still has to be checked in TI's design tool for this LC filter.
 # Power stage: Coilcraft XAL7070-102MEC 1 uH (LCSC C6609502), 6 x 47 uF 10 V 1210 out, 4 x 22 uF 25 V 0805 + 10 nF in.
 def buck(base, gx, vout, en, pg, straps, en_parts):
@@ -407,12 +416,18 @@ def buck(base, gx, vout, en, pg, straps, en_parts):
         if kind == "C": C(f"C{base+20+ci}", val, a, x, y, bnet=bn); ci += 1
         else: R(f"R{base+ri}", val, a, bn, x, y); ri += 1
     C(f"C{base+30}", "4.7uF", f"{u}_VDD5", gx + 16, 239.5, rot=0, fp=C0603)           # VDD5 >= 4.7 uF, 10 V
+# Compensation (TPS546B24A datasheet 8.2.2.10, eq. 26-30): target current-loop gain 19.72 x L x fsw = 19.72 x 1 uH x
+# 550 kHz = 10.8, but pin straps go up to 6. Target voltage-loop gain (1 / VOUT_SCALE_LOOP 0.125) x 12.31 mV/A / Zcout at
+# fsw/10, with 6 x 47 uF derated to ~150 uF at 5 V (~180 uF at 3.3 V): 5.1 (5 V) and 6.1 (3.3 V). TI: when the current loop
+# is short of its target, scale the voltage loop back by the same ratio (6 / 10.8) -> 2.8 and 3.4 -> gain 2.
+# So I-loop 6, V-loop 2 = config 23 = MSEL1 resistor code 13, no divider = 56.2k to AGND. Stable starting point; the
+# management board can raise both over PMBus (USER_DATA_01) after a bench check of gain and phase margin.
 #              VSEL (Rtop, Rbot)   MSEL1          MSEL2              ADRSEL
 buck(501, 58, "5V", "BUCK5_EN", "BUCK5_PG",
-     {"VSEL": ("1.87k", "12.1k"), "MSEL1": (None, "31.6k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "4.64k")},   # 5.0 V, PMBus 0x10
+     {"VSEL": ("1.87k", "12.1k"), "MSEL1": (None, "56.2k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "4.64k")},   # 5.0 V, PMBus 0x10
      [("R", "100k", "BUCK5_EN", "GND")])                                                                    # on when management says so
 buck(601, 84, "3V3", "BUCK3_EN", "BUCK3_PG",
-     {"VSEL": ("12.1k", "21.5k"), "MSEL1": (None, "31.6k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "5.62k")},   # 3.32 V, PMBus 0x11
+     {"VSEL": ("12.1k", "21.5k"), "MSEL1": (None, "56.2k"), "MSEL2": ("11.5k", "4.64k"), "ADRSEL": (None, "5.62k")},   # 3.32 V, PMBus 0x11
      [("R", "100k", "VIN_12V", "BUCK3_EN"), ("R", "15k", "BUCK3_EN", "GND")])  # always-on standby rail: EN/UVLO 1.1 V -> starts at ~8.4 V in
 # PMBus pull-ups (one set for both bucks)
 R("R701", "4.7k", "3V3", "PMBUS_CLK", 150, 226); R("R702", "4.7k", "3V3", "PMBUS_DAT", 151.2, 226); R("R703", "10k", "3V3", "PMBUS_ALERT_N", 152.4, 226)
