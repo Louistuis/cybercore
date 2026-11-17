@@ -10,12 +10,12 @@ A slim, black, console-sized box that runs **DeepSeek V3.1 (671B)** locally, on 
 |---|---|---|
 | Compute | 4 × Jetson T5000 module (87 × 100 mm), 699-pin Molex Mirror Mezz 203456-0003, 2.5 mm connector = **5 mm** between board and module | Pin map **real** (NVIDIA). Contact grid **real** (Molex drawing 2034560003). Outline, connector position and standoffs **measured** from NVIDIA's drawings |
 | Memory | 4 × 128 GB LPDDR5X = 512 GB (273 GB/s per module, per NVIDIA's spec) | On the modules |
-| Module-to-module | Full mesh: each module's MGBE C0-C2 (UPHY lanes 12-14) wired straight to the 3 others, 6 links, AC caps on the back | Nets real, not routed |
+| Module-to-module | Full mesh: each module's MGBE C0-C2 (UPHY lanes 12-14) wired straight to the 3 others, 6 links, AC caps on the back | Nets real, routed by the autorouter (not yet length-matched) |
 | Network clock | One 156.25 MHz HCSL oscillator per module (SCTF SX5DF156.250B20F30HNN) into UPHY_REFCLK2, terminated as in DG-12084 fig. 7-12 (33.2 Ω series, 49.9 Ω to GND) | **Real**: pinout and land pattern from SCTF's 5Z spec sheet, which asks for the same 33 Ω / 50 Ω load |
 | Uplink | Each module's MGBE C3 → one lane of a QSFP28 cage (4 × 25G breakout = one port per module). TE 2170704 press-fit cage + 38-pin connector, cage end at the rear edge | **Real**: cage layout from TE's drawing 2170704 rev G8, contact pads from SFF-8662 table 6-3 |
 | Storage | 1 × M.2 2280 NVMe per module on the back (PCIe C5 x4, UPHY lanes 8-11), each holding its share of the model | Nets real, stock footprint |
 | Power | 12 V in through 2 × EPS-style Mini-Fit Jr 8-pin (~600 W). See the power section | Real TI parts and land patterns |
-| Management | Per module: 2×20 1.27 mm header (sequencing, reset, recovery, thermal, debug UART, I2C, eFuse enables). One system header: buck enable, PMBus, power-good, current monitors, QSFP sideband | Real connectors. The BMC board that plugs in is not designed yet |
+| Management | Per module: 2×20 1.27 mm header (sequencing, reset, recovery, thermal, debug UART, I2C, eFuse enables). One system header: buck enable, PMBus, power-good, current monitors, QSFP sideband | Real connectors. The management board that plugs in is in `../mgmt/` |
 | Service | 4 × USB-C on the rear (each module's USB0, used for recovery and flashing) | Real |
 | Front | The black **CyberCore status panel** (`../panel/`) plugs into J3 (module 0's USB1 + 5 V) | Panel is finished and orderable |
 | Cooling | 4 fan headers, each module driving its own blower (FAN_PWM / FAN_TACH) | Real connectors; the thermal design is not done |
@@ -58,7 +58,8 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 - QSFP28: TE 2170704 cage layout (sheet 15) with SFF-8662 contact pads: 2 alignment holes, 12 press-fit cage holes, 38 contacts and the cage keep-out, which DRC enforces
 - Mirror Mezz contact grid from Molex's drawing
 - Stock connectors (M.2, USB-C, Mini-Fit Jr, fan headers, management headers)
-- DRC: 0 violations (with 499 unrouted connections, because nothing is routed yet)
+- DRC of the placed board (`console.kicad_pcb`): 0 violations
+- **Routed** (`console_routed.kicad_pcb`): every connection made, 0 unconnected. See the routing section below
 
 **Confirmed from the makers' own documents:**
 - Mirror Mezz contact grid: Molex drawing 2034560003 sheet 2. 699 round 0.50 mm pads (0.60 mm mask opening), rows 1.50 mm apart, 0.90 mm pitch with a 1.30 mm gap between pair groups, alternate rows shifted 0.20 mm. This replaced the uniform 0.96 mm grid measured from NVIDIA's pictures, which was off by up to 0.4 mm.
@@ -73,10 +74,20 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 **Open questions:**
 - **The direct MGBE-to-MGBE mesh.** XFI is meant to drive an SFP+ module. A short PCB link acts like a passive copper cable, but it must be checked against design guide section 7.3.
 - **25 GbE speed.** NVIDIA says it is "being validated", so plan on 10G per link until it is confirmed.
-- **Sequencing.** Every module has its own SYS_VIN_SV → MV/HV → MODULE_POWER_ON sequence (DG-12084 chapter 5). The eFuses and switches are on the board now, but the logic that drives them runs on the management board, which isn't designed yet.
-- **Cooling.** ~600 W in a slim box needs vapor chambers on the modules' thermal plates and 4 blowers. That's the hardest part of "slim".
+- **Sequencing.** Every module has its own SYS_VIN_SV → MV/HV → MODULE_POWER_ON sequence (DG-12084 chapter 5). The eFuses and switches are on this board; the logic that drives them is on the management board (`../mgmt/SEQUENCING.md`).
+- **Cooling.** ~540 W in a slim box. The enclosure concept and its hand-calculated cooling budget are in `../enclosure/`; there is no thermal simulation yet.
 
-**Not done:** routing (12-layer HDI, with length-matched 25G and PCIe Gen4 pairs), the BMC board, the enclosure, and power/thermal simulation.
+**Not done:** signal-integrity routing of the high-speed pairs (see below), and power and thermal simulation.
+
+## Routing
+![routed signal layers](shots/console_routed_copper.png)
+
+The signal layers (F.Cu, In2, In4, In10, B.Cu) of `console_routed.kicad_pcb`. The other 7 layers are ground and power planes, with one 5 V and one 20 V island per module.
+
+- **All 502 connections routed** by Freerouting in 5 passes (7 h 50 min on one CPU core). KiCad's DRC finds **0 unconnected items, 0 clearance errors**.
+- **70 track segments are thinner than the 0.09 mm board minimum** (53 mm in all, most under 0.5 mm long). They're where the autorouter narrowed a track to leave a fine-pitch pad, mostly at the Mirror Mezz connectors. 65 are 0.075 mm, which HDI fabs make, and 5 are 0.05-0.06 mm, which need a hand fix. `route_finish.py` already widened every segment that had room.
+- **Not signal-integrity routed.** The autorouter routes each wire of a differential pair on its own. The 25G mesh, PCIe Gen4, USB and QSFP pairs still need routing as coupled, impedance-controlled and length-matched pairs. Treat this file as proof that the board can be fully connected on 12 layers, not as an orderable layout.
+
 
 ## Rebuild
 1. Download NVIDIA's *Jetson Thor Series Modules Design Guide* (DG-12084-001, free from developer.nvidia.com).
@@ -86,4 +97,5 @@ Each converter's footprint was drawn from TI's own land-pattern drawing (RVF0040
 /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 make_console.py
 kicad-cli pcb drc -o drc.rpt console.kicad_pcb
 ```
+4. Route it (about 8 hours on one core; commands in `route.py`): `route.py prep`, then Freerouting, then `route.py import` and `route_finish.py`.
 NVIDIA's documents and the pin spreadsheet are **not** in this repo; the script reads them from your own download. The TI datasheets used for the power stage are free on ti.com (TPS546B24A, TPS25982, TPS22918). The QSFP28 layout comes from TE's customer drawing 2170704 (te.com) and SFF-8662 (snia.org); the connector grid from Molex drawing 2034560003 (molex.com).
